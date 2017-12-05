@@ -17,78 +17,78 @@ drop table if exists tb_picutre_word;
 /*==============================================================*/
 create table tb_banner_manage
 (
-   id                   bigint(64) not null comment '×ÔÔöÖ÷¼ü',
-   picture_url          varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment 'Í¼Æ¬url',
-   type                 tinyint not null default 1 comment '·ÖÀàÑ¡Ôñ£º1--Æ·ÅÆÔªËØ£»2--pptÄ£°å£»3--¹ã¸æÄ£°å£»',
-   download_times       int(11) not null default 0 comment 'ÏÂÔØ´ÎÊı',
-   creator              varchar(50) not null default 'unknown' comment '´´½¨Õß',
-   updater              varchar(50) not null default 'unknown' comment 'ĞŞ¸ÄÕß',
-   create_time          timestamp not null default CURRENT_TIMESTAMP comment '´´½¨Ê±¼ä',
-   update_time          timestamp not null default CURRENT_TIMESTAMP comment 'ĞŞ¸ÄÊ±¼ä',
-   sequence             int(11) not null default 0 comment 'ĞòÁĞºÅ',
-   delete_flag          tinyint not null default 0 comment 'ÊÇ·ñÉ¾³ı£º0--Î´É¾³ı£»1--ÒÑÉ¾³ı¡£',
+   id                   bigint(64) not null comment 'è‡ªå¢ä¸»é”®',
+   picture_url          varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment 'å›¾ç‰‡url',
+   type                 tinyint not null default 1 comment 'åˆ†ç±»é€‰æ‹©ï¼š1--å“ç‰Œå…ƒç´ ï¼›2--pptæ¨¡æ¿ï¼›3--å¹¿å‘Šæ¨¡æ¿ï¼›',
+   download_times       int(11) not null default 0 comment 'ä¸‹è½½æ¬¡æ•°',
+   creator              varchar(50) not null default 'unknown' comment 'åˆ›å»ºè€…',
+   updater              varchar(50) not null default 'unknown' comment 'ä¿®æ”¹è€…',
+   create_time          timestamp not null default CURRENT_TIMESTAMP comment 'åˆ›å»ºæ—¶é—´',
+   update_time          timestamp not null default CURRENT_TIMESTAMP comment 'ä¿®æ”¹æ—¶é—´',
+   sequence             int(11) not null default 0 comment 'åºåˆ—å·',
+   delete_flag          tinyint not null default 0 comment 'æ˜¯å¦åˆ é™¤ï¼š0--æœªåˆ é™¤ï¼›1--å·²åˆ é™¤ã€‚',
    primary key (id)
 );
 
-alter table tb_banner_manage comment 'banner¹ÜÀí';
+alter table tb_banner_manage comment 'bannerç®¡ç†';
 
 /*==============================================================*/
 /* Table: tb_download_message                                   */
 /*==============================================================*/
 create table tb_download_message
 (
-   id                   bigint(64) not null comment '×ÔÔöÖ÷¼ü',
-   picture_url          varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment 'Í¼Æ¬url',
-   title                varchar(100) not null default 'Î´¶¨Òå±êÌâ' comment 'ÏÂÔØĞÅÏ¢--±êÌâ',
-   attachment_url       varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment '¸½¼şurl',
-   type                 tinyint not null default 1 comment '·ÖÀàÑ¡Ôñ£º1--Æ·ÅÆÔªËØ£»2--pptÄ£°å£»3--¹ã¸æÄ£°å£»',
-   download_times       int(11) not null default 0 comment 'ÏÂÔØ´ÎÊı',
-   creator              varchar(50) not null default 'unknown' comment '´´½¨Õß',
-   updater              varchar(50) not null default 'unknown' comment 'ĞŞ¸ÄÕß',
-   create_time          timestamp not null default CURRENT_TIMESTAMP comment '´´½¨Ê±¼ä',
-   update_time          timestamp not null default CURRENT_TIMESTAMP comment 'ĞŞ¸ÄÊ±¼ä',
-   sequence             int(11) not null default 0 comment 'ĞòÁĞºÅ',
-   delete_flag          tinyint not null default 0 comment 'ÊÇ·ñÉ¾³ı£º0--Î´É¾³ı£»1--ÒÑÉ¾³ı¡£',
+   id                   bigint(64) not null comment 'è‡ªå¢ä¸»é”®',
+   picture_url          varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment 'å›¾ç‰‡url',
+   title                varchar(100) not null default 'æœªå®šä¹‰æ ‡é¢˜' comment 'ä¸‹è½½ä¿¡æ¯--æ ‡é¢˜',
+   attachment_url       varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment 'é™„ä»¶url',
+   type                 tinyint not null default 1 comment 'åˆ†ç±»é€‰æ‹©ï¼š1--å“ç‰Œå…ƒç´ ï¼›2--pptæ¨¡æ¿ï¼›3--å¹¿å‘Šæ¨¡æ¿ï¼›',
+   download_times       int(11) not null default 0 comment 'ä¸‹è½½æ¬¡æ•°',
+   creator              varchar(50) not null default 'unknown' comment 'åˆ›å»ºè€…',
+   updater              varchar(50) not null default 'unknown' comment 'ä¿®æ”¹è€…',
+   create_time          timestamp not null default CURRENT_TIMESTAMP comment 'åˆ›å»ºæ—¶é—´',
+   update_time          timestamp not null default CURRENT_TIMESTAMP comment 'ä¿®æ”¹æ—¶é—´',
+   sequence             int(11) not null default 0 comment 'åºåˆ—å·',
+   delete_flag          tinyint not null default 0 comment 'æ˜¯å¦åˆ é™¤ï¼š0--æœªåˆ é™¤ï¼›1--å·²åˆ é™¤ã€‚',
    primary key (id)
 );
 
-alter table tb_download_message comment 'ÏÂÔØĞÅÏ¢±í';
+alter table tb_download_message comment 'ä¸‹è½½ä¿¡æ¯è¡¨';
 
 /*==============================================================*/
 /* Table: tb_login_history                                      */
 /*==============================================================*/
 create table tb_login_history
 (
-   id                   bigint(64) not null comment '×ÔÔöÖ÷¼ü',
-   picture_url          varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment 'ÓÃ»§Í·Ïñurl',
-   name                 varchar(128) not null default '1' comment '·ÖÀàÑ¡Ôñ£º1--Æ·ÅÆÔªËØ£»2--pptÄ£°å£»3--¹ã¸æÄ£°å£»',
-   email                varchar(128) not null default '0' comment 'ÏÂÔØ´ÎÊı',
-   login_time           timestamp not null default CURRENT_TIMESTAMP comment '´´½¨Ê±¼ä',
-   delete_flag          tinyint not null default 0 comment 'ÊÇ·ñÉ¾³ı£º0--Î´É¾³ı£»1--ÒÑÉ¾³ı¡£',
+   id                   bigint(64) not null comment 'è‡ªå¢ä¸»é”®',
+   picture_url          varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment 'ç”¨æˆ·å¤´åƒurl',
+   name                 varchar(128) not null default '1' comment 'åˆ†ç±»é€‰æ‹©ï¼š1--å“ç‰Œå…ƒç´ ï¼›2--pptæ¨¡æ¿ï¼›3--å¹¿å‘Šæ¨¡æ¿ï¼›',
+   email                varchar(128) not null default '0' comment 'ä¸‹è½½æ¬¡æ•°',
+   login_time           timestamp not null default CURRENT_TIMESTAMP comment 'åˆ›å»ºæ—¶é—´',
+   delete_flag          tinyint not null default 0 comment 'æ˜¯å¦åˆ é™¤ï¼š0--æœªåˆ é™¤ï¼›1--å·²åˆ é™¤ã€‚',
    primary key (id)
 );
 
-alter table tb_login_history comment 'ÓÃ»§µÇÂ¼ĞÅÏ¢';
+alter table tb_login_history comment 'ç”¨æˆ·ç™»å½•ä¿¡æ¯';
 
 /*==============================================================*/
 /* Table: tb_picutre_word                                       */
 /*==============================================================*/
 create table tb_picutre_word
 (
-   id                   bigint(64) not null comment '×ÔÔöÖ÷¼ü',
-   picture_url          varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment 'Í¼Æ¬url',
-   title                varchar(100) not null default 'Î´¶¨Òå±êÌâ' comment 'ÏÂÔØĞÅÏ¢--±êÌâ',
-   artical              varchar(2000) not null default 'test' comment 'ÔİÎŞÎÄÕÂ',
-   type                 tinyint not null default 1 comment '·ÖÀàÑ¡Ôñ£º1--Æ·ÅÆÔªËØ£»2--pptÄ£°å£»3--¹ã¸æÄ£°å£»',
-   download_times       int(11) not null default 0 comment 'ÏÂÔØ´ÎÊı',
-   creator              varchar(50) not null default 'unknown' comment '´´½¨Õß',
-   updater              varchar(50) not null default 'unknown' comment 'ĞŞ¸ÄÕß',
-   create_time          timestamp not null default CURRENT_TIMESTAMP comment '´´½¨Ê±¼ä',
-   update_time          timestamp not null default CURRENT_TIMESTAMP comment 'ĞŞ¸ÄÊ±¼ä',
-   sequence             int(11) not null default 0 comment 'ĞòÁĞºÅ',
-   delete_flag          tinyint not null default 0 comment 'ÊÇ·ñÉ¾³ı£º0--Î´É¾³ı£»1--ÒÑÉ¾³ı¡£',
+   id                   bigint(64) not null comment 'è‡ªå¢ä¸»é”®',
+   picture_url          varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment 'å›¾ç‰‡url',
+   title                varchar(100) not null default 'æœªå®šä¹‰æ ‡é¢˜' comment 'ä¸‹è½½ä¿¡æ¯--æ ‡é¢˜',
+   artical              varchar(2000) not null default 'test' comment 'æš‚æ— æ–‡ç« ',
+   type                 tinyint not null default 1 comment 'åˆ†ç±»é€‰æ‹©ï¼š1--å“ç‰Œå…ƒç´ ï¼›2--pptæ¨¡æ¿ï¼›3--å¹¿å‘Šæ¨¡æ¿ï¼›',
+   download_times       int(11) not null default 0 comment 'ä¸‹è½½æ¬¡æ•°',
+   creator              varchar(50) not null default 'unknown' comment 'åˆ›å»ºè€…',
+   updater              varchar(50) not null default 'unknown' comment 'ä¿®æ”¹è€…',
+   create_time          timestamp not null default CURRENT_TIMESTAMP comment 'åˆ›å»ºæ—¶é—´',
+   update_time          timestamp not null default CURRENT_TIMESTAMP comment 'ä¿®æ”¹æ—¶é—´',
+   sequence             int(11) not null default 0 comment 'åºåˆ—å·',
+   delete_flag          tinyint not null default 0 comment 'æ˜¯å¦åˆ é™¤ï¼š0--æœªåˆ é™¤ï¼›1--å·²åˆ é™¤ã€‚',
    primary key (id)
 );
 
-alter table tb_picutre_word comment '·¢²¼Í¼ÎÄ±í';
+alter table tb_picutre_word comment 'å‘å¸ƒå›¾æ–‡è¡¨';
 
