@@ -1,13 +1,21 @@
 package com.sunlands.uedService.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
+import com.sunlands.uedService.bean.ResultBean;
+import com.sunlands.uedService.processor.DownloadMessageProcessor;
+import com.sunlands.uedService.utils.GsonUtil;
+import com.sunlands.uedService.utils.ParamUtils;
+import com.sunlands.uedService.view.View;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 下载信息管理
@@ -18,48 +26,51 @@ import java.util.Map;
 @RequestMapping("/downloadMessage")
 public class DownloadMessageController {
 
+    private Logger logger = LoggerFactory.getLogger(BannerManageController.class);
+    private static DownloadMessageProcessor processor = new DownloadMessageProcessor();
+    private static JsonParser jsonParser = new JsonParser();
+    private static Gson gson = GsonUtil.getGson();
+    private static View view = new View();
+
     /**
      * 显示下载信息列表
-     * @param session
-     * @return
+     * @param request
+     * @param response
      */
     @PostMapping("/list")
     public @ResponseBody
-    Map<String, Object> list(HttpSession session) {
-        Map<String, Object> map = new HashMap<>();
-
-        //TODO 下载信息列表
-
-        return map;
+    void list(HttpServletRequest request, HttpServletResponse response) {
+        String param = ParamUtils.getParam(request);
+        ResultBean resultBean = processor.getAllByPageNum(param);
+        String resultStr = gson.toJson(resultBean);
+        view.viewString(resultStr, response);
     }
 
     /**
      * 下载信息插入一条记录
-     * @param session
-     * @return
+     * @param request
+     * @param response
      */
     @PostMapping("/publish")
     public @ResponseBody
-    Map<String, Object> publish(HttpSession session) {
-        Map<String, Object> map = new HashMap<>();
-
-        //TODO 插入一条banner记录
-
-        return map;
+    void publish(HttpServletRequest request, HttpServletResponse response) {
+        String param = ParamUtils.getParam(request);
+        ResultBean resultBean = processor.insert(param);
+        String resultStr = gson.toJson(resultBean);
+        view.viewString(resultStr, response);
     }
 
     /**
      * 获取一条下载信息记录
-     * @param session
-     * @return
+     * @param request
+     * @param response
      */
     @PostMapping("/get")
     public @ResponseBody
-    Map<String, Object> get(HttpSession session) {
-        Map<String, Object> map = new HashMap<>();
-
-        //TODO 获取一条记录
-
-        return map;
+    void get(HttpServletRequest request, HttpServletResponse response) {
+        String param = ParamUtils.getParam(request);
+        ResultBean resultBean = processor.getById(param);
+        String resultStr = gson.toJson(resultBean);
+        view.viewString(resultStr, response);
     }
 }
