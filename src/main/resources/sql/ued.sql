@@ -1,5 +1,5 @@
 /*==============================================================*/
-/* DBMS name:      MySQL 5.0                                    */
+/* DBMS name:      MySQL 5.5                                    */
 /* Created on:     2017/12/5 18:08:49                           */
 /*==============================================================*/
 
@@ -24,7 +24,7 @@ create table tb_banner_manage
    creator              varchar(50) not null default 'unknown' comment '创建者',
    updater              varchar(50) not null default 'unknown' comment '修改者',
    create_time          timestamp not null default CURRENT_TIMESTAMP comment '创建时间',
-   update_time          timestamp not null default CURRENT_TIMESTAMP comment '修改时间',
+   update_time          `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '修改时间',
    sequence             int(11) not null default 0 comment '序列号',
    delete_flag          tinyint not null default 0 comment '是否删除：0--未删除；1--已删除。',
    primary key (id)
@@ -46,7 +46,7 @@ create table tb_download_message
    creator              varchar(50) not null default 'unknown' comment '创建者',
    updater              varchar(50) not null default 'unknown' comment '修改者',
    create_time          timestamp not null default CURRENT_TIMESTAMP comment '创建时间',
-   update_time          timestamp not null default CURRENT_TIMESTAMP comment '修改时间',
+   update_time          `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '修改时间',
    sequence             int(11) not null default 0 comment '序列号',
    delete_flag          tinyint not null default 0 comment '是否删除：0--未删除；1--已删除。',
    primary key (id)
@@ -63,7 +63,7 @@ create table tb_login_history
    picture_url          varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment '用户头像url',
    name                 varchar(128) not null default '1' comment '分类选择：1--品牌元素；2--ppt模板；3--广告模板；',
    email                varchar(128) not null default '0' comment '下载次数',
-   login_time           timestamp not null default CURRENT_TIMESTAMP comment '创建时间',
+   login_time           `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '创建时间',
    delete_flag          tinyint not null default 0 comment '是否删除：0--未删除；1--已删除。',
    primary key (id)
 );
@@ -84,7 +84,7 @@ create table tb_picutre_word
    creator              varchar(50) not null default 'unknown' comment '创建者',
    updater              varchar(50) not null default 'unknown' comment '修改者',
    create_time          timestamp not null default CURRENT_TIMESTAMP comment '创建时间',
-   update_time          timestamp not null default CURRENT_TIMESTAMP comment '修改时间',
+   update_time          `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '修改时间',
    sequence             int(11) not null default 0 comment '序列号',
    delete_flag          tinyint not null default 0 comment '是否删除：0--未删除；1--已删除。',
    primary key (id)
