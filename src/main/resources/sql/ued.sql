@@ -63,7 +63,7 @@ create table tb_login_history
    picture_url          varchar(128) not null default 'http://m.sunlands.com/16/BJ/pc/ec2tG7/index.html' comment '用户头像url',
    name                 varchar(128) not null default '1' comment '分类选择：1--品牌元素；2--ppt模板；3--广告模板；',
    email                varchar(128) not null default '0' comment '下载次数',
-   login_time           timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '创建时间',
+   login_time           timestamp NULL DEFAULT CURRENT_TIMESTAMP comment '登录时间',
    delete_flag          tinyint not null default 0 comment '是否删除：0--未删除；1--已删除。',
    primary key (id)
 );
