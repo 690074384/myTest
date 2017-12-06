@@ -1,4 +1,4 @@
-package com.sunlands.uedService.Utils;
+package com.sunlands.uedService.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 

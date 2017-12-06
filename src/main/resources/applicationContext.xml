@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+    <bean id="SpringContextUtil" class="com.sunlands.uedService.utils.SpringContextUtil" scope="singleton"/>
+
+    <bean name="allDao" class="com.sunlands.uedService.mapper.AllDao">
+        <property name="bannerManageDao" ref="bannerManageMapper"/>
+        <property name="downloadMessageDao" ref="downloadMessageMapper"/>
+        <property name="historyDao" ref="historyMapper"/>
+        <property name="loginMapper" ref="loginMapper"/>
+        <property name="pictureWordDao" ref="pictureWordMapper"/>
+    </bean>
+
+</beans>

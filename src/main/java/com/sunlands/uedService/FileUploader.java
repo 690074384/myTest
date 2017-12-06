@@ -1,7 +1,7 @@
 package com.sunlands.uedService;
 
 
-import com.sunlands.uedService.Utils.FileUtil;
+import com.sunlands.uedService.utils.FileUtil;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;

@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: utf-8
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ued?characterEncoding=utf8
+    username: root
+    password: root
+  thymeleaf:
+    encoding: UTF-8
+    prefix: classpath:/templates/
+mybatis:
+  type-aliases-package: com.sunlands.uedService.po
+
+
