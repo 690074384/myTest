@@ -1,6 +1,7 @@
 package com.sunlands.uedservice.po;
 
 /**
+ * 超类
  * @author lvpenghui
  * @date 2017/12/6 11:59
  */

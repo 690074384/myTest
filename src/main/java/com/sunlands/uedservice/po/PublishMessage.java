@@ -3,6 +3,7 @@ package com.sunlands.uedservice.po;
 import java.util.Date;
 
 /**
+ * 几种类型父类
  * @author lvpenghui
  * @date 2017/12/6 12:09
  */

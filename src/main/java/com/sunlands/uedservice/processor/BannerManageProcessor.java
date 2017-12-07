@@ -24,7 +24,11 @@ public class BannerManageProcessor {
     private static Logger logger = LoggerFactory.getLogger(BannerManage.class);
     private static JsonParser jsonParser = new JsonParser();
 
-
+    /**
+     * TODO
+     * @param param
+     * @return
+     */
     public ResultBean insert(String param) {
         String pictureUrl;
         Byte type;

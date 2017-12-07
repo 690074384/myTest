@@ -2,8 +2,12 @@ package com.sunlands.uedservice.bean;
 
 
 /**
- * Created by lvpenghui on 2017/12/6.
- */
+ * @Author : lvpenghui
+ * @Description :
+ * @Date : Created in 10:25 2017/12/6
+ * @ModifiedBy :
+ *
+*/
 public class ResultBean {
     private int code;
     private Object info;

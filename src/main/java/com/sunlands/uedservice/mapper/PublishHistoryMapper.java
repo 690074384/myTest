@@ -18,18 +18,44 @@ import java.util.List;
 @Mapper
 public interface PublishHistoryMapper {
 
+    /**
+     * 向tb_publish_history中插入一条记录
+     * @param publishHistory
+     */
     @Insert("insert into tb_publish_history(id,picture_url,title,type,download_times,table_choose,delete_flag) values(#{id},#{pictureUrl},#{title},#{type},#{downloadTimes},#{tableChoose},#{deleteFlag})")
     void insertOne(PublishHistory publishHistory);
 
+    /**
+     * 查出tb_publish_history中对应起始值记录
+     * @param startNum
+     * @param endNum
+     * @return
+     */
     @Select("select id,picture_url as pictureUrl,title,type,download_times as downloadTimes,table_choose as tableChoose,delete_flag as deleteFlag from tb_publish_history where delete_flag = 0 order by download_times limit #{arg0},#{arg1}")
     List<PublishHistory> getAllByPageNum(int startNum, int endNum);
 
+    /**
+     * 根据一种类型（分类选择：1--品牌元素；2--ppt模板；3--广告模板；4--可爱元素；5--精彩分享；）获取到该类型全部信息
+     * @param type
+     * @param startNum
+     * @param endNum
+     * @return
+     */
     @Select("select id,picture_url as pictureUrl,title,type,download_times as downloadTimes,table_choose as tableChoose,delete_flag as deleteFlag from tb_publish_history where delete_flag = 0 and type = #{arg0} order by download_times limit #{arg1},#{arg2}")
     List<PublishHistory> getOneTypeByPageNum(int type , int startNum, int endNum);
 
+    /**
+     * 修改tb_publish_history表中某一项对应删除状态位
+     * @param id
+     */
     @Update("update tb_publish_history set delete_flag = 1 where id = #{id}")
     void updateDeleteFlagById(Long id);
 
+    /**
+     * 根据id获取未被删除得单条记录
+     * @param id
+     * @return
+     */
     @Select("select table_choose from tb_publish_history where id = #{id} and delete_flag = 0")
     String getTableChooseById(Long id);
 }

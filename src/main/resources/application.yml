@@ -13,5 +13,7 @@ spring:
     prefix: classpath:/templates/
 mybatis:
   type-aliases-package: com.sunlands.uedService.po
-
+casServer: http://172.16.116.136:9091/cas
+serverName: http://172.16.103.226:9000
+ignoreAddress: /a.do|/*.html
 
