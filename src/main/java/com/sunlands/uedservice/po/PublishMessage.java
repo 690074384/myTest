@@ -14,6 +14,7 @@ public class PublishMessage extends Root {
 	private Date createTime;
 	private Date updateTime;
 	private Integer sequence;
+	private String title;
 	
 	public Byte getType() {
 		return type;
@@ -69,5 +70,13 @@ public class PublishMessage extends Root {
 	
 	public void setSequence(Integer sequence) {
 		this.sequence = sequence;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

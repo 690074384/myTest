@@ -1,13 +1,11 @@
 package com.sunlands.uedservice.processor;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sunlands.uedservice.bean.ResultBean;
 import com.sunlands.uedservice.mapper.AllDao;
-import com.sunlands.uedservice.po.BannerManage;
 import com.sunlands.uedservice.po.DownLoadMessage;
-import com.sunlands.uedservice.utils.GsonUtil;
+import com.sunlands.uedservice.po.PublishHistory;
 import com.sunlands.uedservice.utils.SnowflakeIdWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +20,8 @@ import java.util.List;
  */
 public class DownloadMessageProcessor {
 
-    private static Logger logger = LoggerFactory.getLogger(BannerManage.class);
+    private static Logger logger = LoggerFactory.getLogger(DownLoadMessage.class);
     private static JsonParser jsonParser = new JsonParser();
-    private static Gson gson = GsonUtil.getGson();
 
     public ResultBean insert(String param) {
 
@@ -35,7 +32,7 @@ public class DownloadMessageProcessor {
         JsonObject downloadMessageJson;
         ResultBean downloadMessageBean = new ResultBean();
         String title;
-        String attachmentUrl = null;
+        String attachmentUrl;
         try {
             downloadMessageJson = (JsonObject) jsonParser.parse(param);
             title = downloadMessageJson.get("title").getAsString();
@@ -65,11 +62,22 @@ public class DownloadMessageProcessor {
         downLoadMessage.setUpdater("lvpenghui");
         downLoadMessage.setCreator("lvpenghui");
 
+        PublishHistory publishHistory = new PublishHistory();
+        publishHistory.setId(id);
+        publishHistory.setPictureUrl(pictureUrl);
+        publishHistory.setTitle(title);
+        publishHistory.setType(type);
+        publishHistory.setDownloadTimes(0);
+        publishHistory.setTableChoose("tb_download_message");
+        publishHistory.setDeleteFlag((byte) 0);
+
         try {
             AllDao.getInstance().getDownloadMessageDao().insertOne(downLoadMessage);
+            AllDao.getInstance().getPublishHistoryDao().insertOne(publishHistory);
         } catch (Exception e) {
             downloadMessageBean.setCode(0);
             downloadMessageBean.setMsg("数据插入失败！");
+            e.printStackTrace();
             return downloadMessageBean;
         }
 
@@ -99,19 +107,26 @@ public class DownloadMessageProcessor {
 
     public ResultBean getAllByPageNum(String param) {
         ResultBean downloadMessageBean = new ResultBean();
-        int startNum;
-        int endNum;
+        int pageNum;
         try {
-            startNum = ((JsonObject) jsonParser.parse(param)).get("startNum").getAsInt();
-            endNum = ((JsonObject) jsonParser.parse(param)).get("endNum").getAsInt();
+            pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
         } catch (Exception e) {
+            e.printStackTrace();
             downloadMessageBean.setCode(0);
             downloadMessageBean.setMsg("参数传递异常！");
             logger.error("参数传递异常！");
             return downloadMessageBean;
         }
-        List<DownLoadMessage> downLoadMessageList = AllDao.getInstance().getDownloadMessageDao().getAllByPageNum(startNum,endNum);
-        downloadMessageBean.setData(downLoadMessageList);
+        try {
+            List<DownLoadMessage> downLoadMessageList = AllDao.getInstance().getDownloadMessageDao().getAllByPageNum((pageNum - 1) * 12, pageNum * 12);
+            downloadMessageBean.setData(downLoadMessageList);
+        } catch (Exception e) {
+            logger.error("参数传递异常！");
+            downloadMessageBean.setCode(0);
+            downloadMessageBean.setMsg("参数传递异常！");
+            e.printStackTrace();
+            return downloadMessageBean;
+        }
         downloadMessageBean.setMsg("数据获取成功！");
         downloadMessageBean.setCode(1);
         return downloadMessageBean;

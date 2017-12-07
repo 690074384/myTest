@@ -4,6 +4,7 @@ import com.sunlands.uedservice.po.BannerManage;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Mapper
 public interface BannerManageMapper {
 
-    @Insert("insert into tb_banner_manage(id,picture_url,type,creator,updater,sequence) values(#{id},#{pictureUrl},#{type},#{creator},#{updater},#{sequence})")
+    @Insert("insert into tb_banner_manage(id,picture_url,title,type,creator,updater,sequence) values(#{id},#{pictureUrl},#{title},#{type},#{creator},#{updater},#{sequence})")
     void insertOne(BannerManage bannerManage);
 
     @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_banner_manage where id = #{id} and delete_flag = 0")
@@ -22,4 +23,10 @@ public interface BannerManageMapper {
 
     @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_banner_manage where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
     List<BannerManage> getAllByPageNum(int startNum, int endNum);
+
+    @Update("update tb_banner_manage set delete_flag = 1 where id = #{id}")
+    void updateDeleteFlagById(Long id);
+
+    @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_banner_manage where id = #{id}")
+    BannerManage getById(Long id);
 }

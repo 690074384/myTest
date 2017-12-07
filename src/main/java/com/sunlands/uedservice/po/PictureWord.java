@@ -6,7 +6,6 @@ package com.sunlands.uedservice.po;
  */
 public class PictureWord extends PublishMessage{
     private String article;
-    private String title;
 
     public String getArticle() {
         return article;
@@ -16,11 +15,4 @@ public class PictureWord extends PublishMessage{
         this.article = article;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 }

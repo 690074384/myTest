@@ -4,6 +4,7 @@ import com.sunlands.uedservice.po.DownLoadMessage;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -21,4 +22,10 @@ public interface DownloadMessageMapper {
 
     @Select("select id,picture_url as pictureUrl,title,attachment_url as attachmentUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_download_message where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
     List<DownLoadMessage> getAllByPageNum(Integer startNum, Integer endNum);
+
+    @Update("update tb_download_message set delete_flag = 1 where id = #{id}")
+    void updateDeleteFlagById(Long id);
+
+    @Select("select id,picture_url as pictureUrl,title,attachment_url as attachmentUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_download_message where id = #{id}")
+    DownLoadMessage getById(Long id);
 }

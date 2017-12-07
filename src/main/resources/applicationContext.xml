@@ -8,9 +8,9 @@
     <bean name="allDao" class="com.sunlands.uedservice.mapper.AllDao">
         <property name="bannerManageDao" ref="bannerManageMapper"/>
         <property name="downloadMessageDao" ref="downloadMessageMapper"/>
-        <property name="historyDao" ref="historyMapper"/>
-        <property name="loginMapper" ref="loginMapper"/>
+        <property name="loginDao" ref="loginMapper"/>
         <property name="pictureWordDao" ref="pictureWordMapper"/>
+        <property name="publishHistoryDao" ref="publishHistoryMapper"/>
     </bean>
 
 </beans>

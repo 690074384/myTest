@@ -4,6 +4,7 @@ import com.sunlands.uedservice.po.PictureWord;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -21,4 +22,10 @@ public interface PictureWordMapper {
 
     @Select("select id,picture_url as pictureUrl,title,article,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_picture_word where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
     List<PictureWord> getAllByPageNum(int startNum, int endNum);
+
+    @Update("update tb_picture_word set delete_flag = 1 where id = #{id}")
+    void updateDeleteFlagById(Long id);
+
+    @Select("select id,picture_url as pictureUrl,title,article,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_picture_word where id = #{id}")
+    PictureWord getById(Long id);
 }

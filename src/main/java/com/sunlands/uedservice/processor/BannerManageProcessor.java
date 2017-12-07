@@ -1,12 +1,11 @@
 package com.sunlands.uedservice.processor;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sunlands.uedservice.bean.ResultBean;
 import com.sunlands.uedservice.mapper.AllDao;
 import com.sunlands.uedservice.po.BannerManage;
-import com.sunlands.uedservice.utils.GsonUtil;
+import com.sunlands.uedservice.po.PublishHistory;
 import com.sunlands.uedservice.utils.SnowflakeIdWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +23,6 @@ public class BannerManageProcessor {
 
     private static Logger logger = LoggerFactory.getLogger(BannerManage.class);
     private static JsonParser jsonParser = new JsonParser();
-    private static Gson gson = GsonUtil.getGson();
 
 
     public ResultBean insert(String param) {
@@ -32,10 +30,12 @@ public class BannerManageProcessor {
         Byte type;
         Integer sequence = 0;
         JsonObject bannerManageJson;
+        String title;
         ResultBean bannerManageBean = new ResultBean();
         Long id = SnowflakeIdWorker.getSnowFlakeId();
         try {
             bannerManageJson = (JsonObject) jsonParser.parse(param);
+            title = bannerManageJson.get("title").getAsString();
             pictureUrl = bannerManageJson.get("pictureUrl").getAsString();
             type = bannerManageJson.get("type").getAsByte();
             if (bannerManageJson.has("sequence")) {
@@ -53,13 +53,25 @@ public class BannerManageProcessor {
         bannerManage.setSequence(sequence);
         bannerManage.setType(type);
         bannerManage.setPictureUrl(pictureUrl);
+        bannerManage.setTitle(title);
 
         // TODO 需要获取session中的用户
         bannerManage.setUpdater("lvpenghui");
         bannerManage.setCreator("lvpenghui");
 
+
+        PublishHistory publishHistory = new PublishHistory();
+        publishHistory.setId(id);
+        publishHistory.setPictureUrl(pictureUrl);
+        publishHistory.setTitle(title);
+        publishHistory.setType(type);
+        publishHistory.setDownloadTimes(0);
+        publishHistory.setTableChoose("tb_banner_manage");
+        publishHistory.setDeleteFlag((byte) 0);
+
         try {
             AllDao.getInstance().getBannerManageDao().insertOne(bannerManage);
+            AllDao.getInstance().getPublishHistoryDao().insertOne(publishHistory);
         } catch (Exception e) {
             bannerManageBean.setCode(0);
             bannerManageBean.setMsg("数据插入失败！");
@@ -76,7 +88,7 @@ public class BannerManageProcessor {
         ResultBean bannerManageBean = new ResultBean();
         Long id;
         try {
-            id = ((JsonObject)jsonParser.parse(param)).get("id").getAsLong();
+            id = ((JsonObject) jsonParser.parse(param)).get("id").getAsLong();
         } catch (Exception e) {
             logger.error("参数传递异常！");
             bannerManageBean.setCode(0);
@@ -93,18 +105,16 @@ public class BannerManageProcessor {
 
     public ResultBean getAllByPageNum(String param) {
         ResultBean bannerManageBean = new ResultBean();
-        int startNum;
-        int endNum;
+        int pageNum;
         try {
-            startNum = ((JsonObject) jsonParser.parse(param)).get("startNum").getAsInt();
-            endNum = ((JsonObject) jsonParser.parse(param)).get("endNum").getAsInt();
+            pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
         } catch (Exception e) {
             bannerManageBean.setCode(0);
             logger.error("参数传递异常！");
             bannerManageBean.setMsg("参数传递异常！");
             return bannerManageBean;
         }
-        List<BannerManage> bannerManageList = AllDao.getInstance().getBannerManageDao().getAllByPageNum(startNum,endNum);
+        List<BannerManage> bannerManageList = AllDao.getInstance().getBannerManageDao().getAllByPageNum((pageNum - 1) * 12, pageNum * 12);
         bannerManageBean.setData(bannerManageList);
         bannerManageBean.setMsg("数据获取成功！");
         bannerManageBean.setCode(1);

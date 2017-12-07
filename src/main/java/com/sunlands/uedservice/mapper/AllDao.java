@@ -12,9 +12,9 @@ import org.springframework.context.ApplicationContext;
 public class AllDao {
     private BannerManageMapper bannerManageDao;
     private DownloadMessageMapper downloadMessageDao;
-    private HistoryMapper historyDao;
-    private LoginMapper loginMapper;
+    private LoginMapper loginDao;
     private PictureWordMapper pictureWordDao;
+    private PublishHistoryMapper publishHistoryDao;
 
     private static AllDao instance = null;
     public static AllDao getInstance() {
@@ -41,20 +41,12 @@ public class AllDao {
         this.downloadMessageDao = downloadMessageDao;
     }
 
-    public HistoryMapper getHistoryDao() {
-        return historyDao;
+    public LoginMapper getLoginDao() {
+        return loginDao;
     }
 
-    public void setHistoryDao(HistoryMapper historyDao) {
-        this.historyDao = historyDao;
-    }
-
-    public LoginMapper getLoginMapper() {
-        return loginMapper;
-    }
-
-    public void setLoginMapper(LoginMapper loginMapper) {
-        this.loginMapper = loginMapper;
+    public void setLoginDao(LoginMapper loginDao) {
+        this.loginDao = loginDao;
     }
 
     public PictureWordMapper getPictureWordDao() {
@@ -63,5 +55,13 @@ public class AllDao {
 
     public void setPictureWordDao(PictureWordMapper pictureWordDao) {
         this.pictureWordDao = pictureWordDao;
+    }
+
+    public PublishHistoryMapper getPublishHistoryDao() {
+        return publishHistoryDao;
+    }
+
+    public void setPublishHistoryDao(PublishHistoryMapper publishHistoryDao) {
+        this.publishHistoryDao = publishHistoryDao;
     }
 }
