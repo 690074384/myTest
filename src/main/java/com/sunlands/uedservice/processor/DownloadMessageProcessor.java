@@ -22,6 +22,7 @@ public class DownloadMessageProcessor {
 
     private static Logger logger = LoggerFactory.getLogger(DownLoadMessage.class);
     private static JsonParser jsonParser = new JsonParser();
+    private static String SEQUENCE = "sequence";
 
     public ResultBean insert(String param) {
 
@@ -40,7 +41,7 @@ public class DownloadMessageProcessor {
             pictureUrl = downloadMessageJson.get("pictureUrl").getAsString();
             type = downloadMessageJson.get("type").getAsByte();
             attachmentUrl = downloadMessageJson.get("attachmentUrl").getAsString();
-            if (downloadMessageJson.has("sequence")) {
+            if (downloadMessageJson.has(SEQUENCE)) {
                 sequence = downloadMessageJson.get("sequence").getAsInt();
             }
         } catch (Exception e) {

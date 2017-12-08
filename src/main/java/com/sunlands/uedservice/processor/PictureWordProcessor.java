@@ -22,6 +22,7 @@ public class PictureWordProcessor {
 
     private static Logger logger = LoggerFactory.getLogger(PictureWord.class);
     private static JsonParser jsonParser = new JsonParser();
+    private static String SEQUENCE = "sequence";
 
     public ResultBean insert(String param) {
         String pictureUrl;
@@ -38,7 +39,7 @@ public class PictureWordProcessor {
             type = pictureWordJson.get("type").getAsByte();
             title = pictureWordJson.get("title").getAsString();
             article = pictureWordJson.get("article").getAsString();
-            if (pictureWordJson.has("sequence")) {
+            if (pictureWordJson.has(SEQUENCE)) {
                 sequence = pictureWordJson.get("sequence").getAsInt();
             }
         } catch (Exception e) {

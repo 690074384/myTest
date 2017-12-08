@@ -20,13 +20,17 @@ import java.io.StringWriter;
 import java.util.Map;
 
 /**
- * Created by lvpenghui on 2017/12/6.
- */
+ * @Author : lvpenghui
+ * @Description :
+ * @Date : Created in 11:11 2017/12/6
+ * @ModifiedBy :
+ *
+*/
 public class View {
 	private Logger logger = LoggerFactory.getLogger(View.class);
 	private static Gson gson = GsonUtil.getGson();
 	private static final JsonFactory JSON_FACTORY = new JsonFactory();
-	private static Integer LENGTH = 1024;
+	private static Integer LENGTH = 10240;
 	
 	public void setHttpServletResponse(HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
@@ -66,7 +70,7 @@ public class View {
 	}
 	
 	public void viewString(String str, HttpServletResponse response) {
-		if (str == null || str.length() < LENGTH * 10) {
+		if (str == null || str.length() < LENGTH) {
 			// 10k以下数据显示
 			logger.info("结果:" + str);
 		}

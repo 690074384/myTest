@@ -9,8 +9,12 @@ import org.slf4j.LoggerFactory;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by lvpenghui on 2017/12/6.
- */
+ * @Author : lvpenghui
+ * @Description :
+ * @Date : Created in 11:11 2017/12/6
+ * @ModifiedBy :
+ *
+*/
 public class JsonUtils {
     private static Logger logger = LoggerFactory.getLogger(JsonUtils.class);
     private static SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd");

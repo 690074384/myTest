@@ -1,11 +1,6 @@
 package com.sunlands.uedservice.utils;
 
-/**
- * @Author : lvpenghui
- * @Description :
- * @Date : Created in 15:50 2017/12/6
- * @ModifiedBy :
- */
+
 
 /**
  * Twitter_Snowflake<br>
@@ -18,6 +13,12 @@ package com.sunlands.uedservice.utils;
  * 12位序列，毫秒内的计数，12位的计数顺序号支持每个节点每毫秒(同一机器，同一时间截)产生4096个ID序号<br>
  * 加起来刚好64位，为一个Long型。<br>
  * SnowFlake的优点是，整体上按照时间自增排序，并且整个分布式系统内不会产生ID碰撞(由数据中心ID和机器ID作区分)，并且效率较高，经测试，SnowFlake每秒能够产生26万ID左右。
+ */
+/**
+ * @Author : lvpenghui
+ * @Description :
+ * @Date : Created in 15:50 2017/12/6
+ * @ModifiedBy :
  */
 public class SnowflakeIdWorker {
 	
@@ -179,14 +180,14 @@ public class SnowflakeIdWorker {
 	/**
 	 * 测试
 	 */
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
 		for (int i = 0; i < 1000; i++) {
 			long id = idWorker.nextId();
 			System.out.println(Long.toBinaryString(id));
 			System.out.println(id);
 		}
-	}
+	}*/
 	
 	public static Long getSnowFlakeId() {
 		return new SnowflakeIdWorker(0, 0).nextId();
