@@ -23,6 +23,7 @@ public class BannerManageProcessor {
 
     private static Logger logger = LoggerFactory.getLogger(BannerManage.class);
     private static JsonParser jsonParser = new JsonParser();
+    private static String SEQUENCE = "sequence";
 
     /**
      * TODO
@@ -42,8 +43,8 @@ public class BannerManageProcessor {
             title = bannerManageJson.get("title").getAsString();
             pictureUrl = bannerManageJson.get("pictureUrl").getAsString();
             type = bannerManageJson.get("type").getAsByte();
-            if (bannerManageJson.has("sequence")) {
-                sequence = bannerManageJson.get("sequence").getAsInt();
+            if (bannerManageJson.has(SEQUENCE)) {
+                sequence = bannerManageJson.get(SEQUENCE).getAsInt();
             }
         } catch (Exception e) {
             logger.error("参数传递异常！");

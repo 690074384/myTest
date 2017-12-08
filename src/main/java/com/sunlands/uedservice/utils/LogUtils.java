@@ -7,8 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by lvpenghui on 2017/12/6.
- */
+ * @Author : lvpenghui
+ * @Description :
+ * @Date : Created in 9:44 2017/12/6
+ * @ModifiedBy :
+ *
+*/
 public class LogUtils {
 	private static Logger logger = LoggerFactory.getLogger("businesslog");
 	
@@ -27,10 +31,5 @@ public class LogUtils {
 	public static String getStringTime() {
 		SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return time.format(new Date());
-	}
-	
-	public static String getString_Time() {
-		SimpleDateFormat time_ = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-		return time_.format(new Date());
 	}
 }

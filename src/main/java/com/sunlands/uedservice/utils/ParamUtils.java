@@ -12,16 +12,21 @@ import java.io.BufferedReader;
 import java.net.URLEncoder;
 
 /**
- * Created by lvpenghui on 2017/12/6.
- */
+ * @Author : lvpenghui
+ * @Description :
+ * @Date : Created in 9:45 2017/12/6
+ * @ModifiedBy :
+ *
+*/
 public class ParamUtils {
 	private static Logger logger = LoggerFactory.getLogger(ParamUtils.class);
 	private static Gson gson = GsonUtil.getGson();
 	private static View viewer = new View();
+	private static String GET = "GET";
 	
 	public static String getParam(HttpServletRequest request) {
-		String param = null;
-		if ("GET".equals(request.getMethod())) {
+		String param;
+		if (GET.equals(request.getMethod())) {
 			param = request.getParameter("param");
 		} else {
 			param = getPostParm(request);
@@ -31,7 +36,7 @@ public class ParamUtils {
 	
 	private static String getPostParm(HttpServletRequest request) {
 		StringBuffer jb = new StringBuffer();
-		String line = null;
+		String line;
 		BufferedReader reader = null;
 		try {
 			reader = request.getReader();

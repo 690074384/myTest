@@ -6,8 +6,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 /**
- * Created by lvpenghui on 2017/12/6.
- */
+ * @Author : lvpenghui
+ * @Description :
+ * @Date : Created in 9:45 2017/12/6
+ * @ModifiedBy :
+ *
+*/
 public class GsonUtil {
     private static Gson gson = null;
 
