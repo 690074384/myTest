@@ -3,7 +3,10 @@ package com.sunlands.uedservice.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,34 +20,17 @@ import java.util.Map;
 public class LoginController {
 
     /**
-     *  登录管理
-     * @param account
-     * @param password
-     * @param session
-     * @return
-     */
-    @PostMapping("/loginPost")
-    public @ResponseBody
-    Map<String, Object> loginPost(String account, String password, HttpSession session) {
-        Map<String, Object> map = new HashMap<>(10);
-
-
-        // TODO 调用接口 设置session
-
-        map.put("success", true);
-        map.put("message", "登录成功");
-        return map;
-    }
-
-    /**
-     * 退出登录
-     * @param session
+     * 退出登录,预留，不一定用的上
+     * @param request
      * @return
      */
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        // TODO 移除session
+    public String logout(HttpServletRequest request) {
+        Enumeration em = request.getSession().getAttributeNames();
+        while(em.hasMoreElements()){
+            request.getSession().removeAttribute(em.nextElement().toString());
+        }
 
-        return "redirect:/login";
+        return "redirect:http://172.16.116.136:9091/cas/logout?service=http://localhost:8080";
     }
 }

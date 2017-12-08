@@ -1,7 +1,10 @@
+#server
 server:
   port: 8080
   tomcat:
     uri-encoding: utf-8
+
+#spring
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -11,9 +14,13 @@ spring:
   thymeleaf:
     encoding: UTF-8
     prefix: classpath:/templates/
+
+#mybatis
 mybatis:
   type-aliases-package: com.sunlands.uedService.po
+
+#cas
 casServer: http://172.16.116.136:9091/cas
-serverName: http://172.16.103.226:9000
-ignoreAddress: /a.do|/*.html
+serverName: http://localhost:8080
+ignoreAddress: /*|/*.html
 

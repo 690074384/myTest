@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication(scanBasePackages = "com.sunlands.uedservice.*")
 @MapperScan(basePackages = {"com.sunlands.uedService.mapper"}, sqlSessionFactoryRef = "sqlSessionFactory")
-@ImportResource(locations={"classpath:applicationContext.xml"})
+@ImportResource(locations={"classpath:applicationContext.xml","casFilter.xml"})
 @RestController
 @ServletComponentScan
 /**
@@ -29,9 +29,5 @@ public class UedServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(UedServiceApplication.class, args);
-        System.out.println("1111111111111111111111111");
-        System.out.print(System.getProperty("contextConfigLocation"));
-        System.out.println("1111111111111111111111111");
-
     }
 }
