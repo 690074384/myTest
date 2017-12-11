@@ -101,7 +101,7 @@ public class BannerManageProcessor {
             return bannerManageBean;
         }
 
-        BannerManage bannerManage = AllDao.getInstance().getBannerManageDao().selectById(id);
+        BannerManage bannerManage = AllDao.getInstance().getBannerManageDao().getById(id);
         bannerManageBean.setData(bannerManage);
         bannerManageBean.setMsg("数据获取成功！");
         bannerManageBean.setCode(1);

@@ -26,11 +26,12 @@ public class LoginController {
      */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
+        request.getSession();
         Enumeration em = request.getSession().getAttributeNames();
         while(em.hasMoreElements()){
             request.getSession().removeAttribute(em.nextElement().toString());
         }
 
-        return "redirect:http://172.16.116.136:9091/cas/logout?service=http://localhost:8080";
+        return "redirect:http://172.16.116.136:9091/cas/logout?service=http://localhost:8081";
     }
 }

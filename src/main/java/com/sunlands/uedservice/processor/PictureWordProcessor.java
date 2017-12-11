@@ -103,7 +103,7 @@ public class PictureWordProcessor {
             pictureWordBean.setMsg("参数传递异常！");
             return pictureWordBean;
         }
-        PictureWord pictureWord = AllDao.getInstance().getPictureWordDao().selectById(id);
+        PictureWord pictureWord = AllDao.getInstance().getPictureWordDao().getById(id);
         pictureWordBean.setData(pictureWord);
         pictureWordBean.setMsg("数据获取成功！");
         pictureWordBean.setCode(1);

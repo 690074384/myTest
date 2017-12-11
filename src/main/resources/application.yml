@@ -1,6 +1,6 @@
 #server
 server:
-  port: 8080
+  port: 8081
   tomcat:
     uri-encoding: utf-8
 
@@ -21,6 +21,6 @@ mybatis:
 
 #cas
 casServer: http://172.16.116.136:9091/cas
-serverName: http://localhost:8080
+serverName: http://localhost:8081
 ignoreAddress: /*|/*.html
 

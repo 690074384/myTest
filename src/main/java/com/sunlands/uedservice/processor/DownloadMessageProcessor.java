@@ -99,7 +99,7 @@ public class DownloadMessageProcessor {
             logger.error("参数传递异常！");
             return downloadMessageBean;
         }
-        DownLoadMessage downLoadMessage = AllDao.getInstance().getDownloadMessageDao().selectById(id);
+        DownLoadMessage downLoadMessage = AllDao.getInstance().getDownloadMessageDao().getById(id);
         downloadMessageBean.setData(downLoadMessage);
         downloadMessageBean.setMsg("数据获取成功！");
         downloadMessageBean.setCode(1);
