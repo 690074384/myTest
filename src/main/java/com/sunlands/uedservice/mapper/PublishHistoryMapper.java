@@ -31,7 +31,7 @@ public interface PublishHistoryMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,type,download_times as downloadTimes,table_choose as tableChoose,delete_flag as deleteFlag from tb_publish_history where delete_flag = 0 order by download_times limit #{arg0},#{arg1}")
+    @Select("select id,picture_url as pictureUrl,title,type,download_times as downloadTimes from tb_publish_history where delete_flag = 0 order by download_times limit #{arg0},#{arg1}")
     List<PublishHistory> getAllByPageNum(int startNum, int endNum);
 
     /**
@@ -41,7 +41,7 @@ public interface PublishHistoryMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,type,download_times as downloadTimes,table_choose as tableChoose,delete_flag as deleteFlag from tb_publish_history where delete_flag = 0 and type = #{arg0} order by download_times limit #{arg1},#{arg2}")
+    @Select("select id,picture_url as pictureUrl,title,type,download_times as downloadTimes from tb_publish_history where delete_flag = 0 and type = #{arg0} order by download_times limit #{arg1},#{arg2}")
     List<PublishHistory> getOneTypeByPageNum(int type , int startNum, int endNum);
 
     /**
@@ -58,4 +58,19 @@ public interface PublishHistoryMapper {
      */
     @Select("select table_choose from tb_publish_history where id = #{id} and delete_flag = 0")
     String getTableChooseById(Long id);
+
+    /**
+     * 查找出根据id获取tb_publish_history中最大记录
+     * @return
+     */
+    @Select("select count(*) from tb_publish_history where delete_flag = 0")
+    Integer getMaxRecord();
+
+    /**
+     * 查找出根据type获取tb_publish_history中对应类型最大记录
+     * @param type
+     * @return
+     */
+    @Select("select count(*) from tb_publish_history where type = #{type} and delete_flag = 0")
+    int getOneTypeMaxRecord(int type);
 }

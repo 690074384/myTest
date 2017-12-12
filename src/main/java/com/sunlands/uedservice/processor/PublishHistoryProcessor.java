@@ -2,6 +2,7 @@ package com.sunlands.uedservice.processor;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sunlands.uedservice.bean.PaginationBean;
 import com.sunlands.uedservice.bean.ResultBean;
 import com.sunlands.uedservice.mapper.AllDao;
 import com.sunlands.uedservice.po.PictureWord;
@@ -24,9 +25,15 @@ public class PublishHistoryProcessor {
 
     public ResultBean getAllByPageNum(String param) {
         ResultBean publishHistoryBean = new ResultBean();
+        PaginationBean paginationBean = new PaginationBean();
+        int pageSize;
         int pageNum;
+        List<PublishHistory> publishHistoryList;
         try {
             pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
+            pageSize = ((JsonObject) jsonParser.parse(param)).get("pageSize").getAsInt();
+            publishHistoryList = AllDao.getInstance().getPublishHistoryDao().getAllByPageNum((pageNum - 1) * pageSize, pageNum * pageSize);
+            paginationBean.setList(publishHistoryList);
         } catch (Exception e) {
             publishHistoryBean.setCode(0);
             publishHistoryBean.setMsg("参数传递异常！");
@@ -34,8 +41,11 @@ public class PublishHistoryProcessor {
             e.printStackTrace();
             return publishHistoryBean;
         }
-        List<PublishHistory> publishHistoryList = AllDao.getInstance().getPublishHistoryDao().getAllByPageNum((pageNum - 1) * 12, pageNum * 12);
-        publishHistoryBean.setData(publishHistoryList);
+        paginationBean.setPageSize(pageSize);
+        paginationBean.setPageCount(pageNum);
+        paginationBean.setMaxRecord(AllDao.getInstance().getPublishHistoryDao().getMaxRecord());
+
+        publishHistoryBean.setData(paginationBean);
         publishHistoryBean.setMsg("数据获取成功！");
         publishHistoryBean.setCode(1);
         return publishHistoryBean;
@@ -43,11 +53,17 @@ public class PublishHistoryProcessor {
 
     public ResultBean getOneTypeByPageNum(String param) {
         ResultBean oneTypePublishHistoryBean = new ResultBean();
+        PaginationBean paginationBean = new PaginationBean();
+        List<PublishHistory> oneTypePublishHistoryList;
         int pageNum;
         int type;
+        int pageSize;
         try {
             pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
+            pageSize = ((JsonObject) jsonParser.parse(param)).get("pageSize").getAsInt();
             type = ((JsonObject) jsonParser.parse(param)).get("type").getAsInt();
+            oneTypePublishHistoryList = AllDao.getInstance().getPublishHistoryDao().getOneTypeByPageNum(type, (pageNum - 1) * pageSize, pageNum * pageSize);
+            paginationBean.setList(oneTypePublishHistoryList);
         } catch (Exception e) {
             oneTypePublishHistoryBean.setCode(0);
             oneTypePublishHistoryBean.setMsg("参数传递异常！");
@@ -55,8 +71,12 @@ public class PublishHistoryProcessor {
             logger.error("参数传递异常！");
             return oneTypePublishHistoryBean;
         }
-        List<PublishHistory> oneTypePublishHistoryList = AllDao.getInstance().getPublishHistoryDao().getOneTypeByPageNum(type, (pageNum - 1) * 12, pageNum * 12);
-        oneTypePublishHistoryBean.setData(oneTypePublishHistoryList);
+
+        paginationBean.setPageSize(pageSize);
+        paginationBean.setPageCount(pageNum);
+        paginationBean.setMaxRecord(AllDao.getInstance().getPublishHistoryDao().getOneTypeMaxRecord(type));
+
+        oneTypePublishHistoryBean.setData(paginationBean);
         oneTypePublishHistoryBean.setMsg("数据获取成功！");
         oneTypePublishHistoryBean.setCode(1);
         return oneTypePublishHistoryBean;

@@ -2,6 +2,7 @@ package com.sunlands.uedservice.processor;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sunlands.uedservice.bean.PaginationBean;
 import com.sunlands.uedservice.bean.ResultBean;
 import com.sunlands.uedservice.mapper.AllDao;
 import com.sunlands.uedservice.po.PictureWord;
@@ -112,17 +113,27 @@ public class PictureWordProcessor {
 
     public ResultBean getAllByPageNum(String param) {
         ResultBean pictureWordBean = new ResultBean();
+        PaginationBean paginationBean = new PaginationBean();
         int pageNum;
+        int pageSize;
+        List<PictureWord> pictureWordList;
         try {
             pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
+            pageSize = ((JsonObject) jsonParser.parse(param)).get("pageSize").getAsInt();
+            pictureWordList = AllDao.getInstance().getPictureWordDao().getAllByPageNum((pageNum - 1) * pageSize, pageNum * pageSize);
+            paginationBean.setList(pictureWordList);
         } catch (Exception e) {
             logger.error("参数传递异常！");
             pictureWordBean.setCode(0);
             pictureWordBean.setMsg("参数传递异常！");
             return pictureWordBean;
         }
-        List<PictureWord> pictureWordList = AllDao.getInstance().getPictureWordDao().getAllByPageNum((pageNum - 1) * 12, pageNum * 12);
-        pictureWordBean.setData(pictureWordList);
+
+        paginationBean.setPageSize(pageSize);
+        paginationBean.setPageCount(pageNum);
+        paginationBean.setMaxRecord(AllDao.getInstance().getPictureWordDao().getMaxRecord());
+
+        pictureWordBean.setData(paginationBean);
         pictureWordBean.setMsg("数据获取成功！");
         pictureWordBean.setCode(1);
         return pictureWordBean;

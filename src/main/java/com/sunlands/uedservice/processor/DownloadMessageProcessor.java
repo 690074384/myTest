@@ -2,6 +2,7 @@ package com.sunlands.uedservice.processor;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sunlands.uedservice.bean.PaginationBean;
 import com.sunlands.uedservice.bean.ResultBean;
 import com.sunlands.uedservice.mapper.AllDao;
 import com.sunlands.uedservice.po.DownLoadMessage;
@@ -108,9 +109,15 @@ public class DownloadMessageProcessor {
 
     public ResultBean getAllByPageNum(String param) {
         ResultBean downloadMessageBean = new ResultBean();
+        PaginationBean paginationBean = new PaginationBean();
+        List<DownLoadMessage> downLoadMessageList;
         int pageNum;
+        int pageSize;
         try {
             pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
+            pageSize = ((JsonObject) jsonParser.parse(param)).get("pageSize").getAsInt();
+            downLoadMessageList = AllDao.getInstance().getDownloadMessageDao().getAllByPageNum((pageNum - 1) * pageSize, pageNum * pageSize);
+            paginationBean.setList(downLoadMessageList);
         } catch (Exception e) {
             e.printStackTrace();
             downloadMessageBean.setCode(0);
@@ -118,16 +125,11 @@ public class DownloadMessageProcessor {
             logger.error("参数传递异常！");
             return downloadMessageBean;
         }
-        try {
-            List<DownLoadMessage> downLoadMessageList = AllDao.getInstance().getDownloadMessageDao().getAllByPageNum((pageNum - 1) * 12, pageNum * 12);
-            downloadMessageBean.setData(downLoadMessageList);
-        } catch (Exception e) {
-            logger.error("参数传递异常！");
-            downloadMessageBean.setCode(0);
-            downloadMessageBean.setMsg("参数传递异常！");
-            e.printStackTrace();
-            return downloadMessageBean;
-        }
+        paginationBean.setPageSize(pageSize);
+        paginationBean.setMaxRecord(AllDao.getInstance().getDownloadMessageDao().getMaxRecord());
+        paginationBean.setPageCount(pageNum);
+
+        downloadMessageBean.setData(paginationBean);
         downloadMessageBean.setMsg("数据获取成功！");
         downloadMessageBean.setCode(1);
         return downloadMessageBean;

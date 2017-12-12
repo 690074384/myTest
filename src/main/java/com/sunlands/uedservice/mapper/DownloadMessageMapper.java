@@ -26,7 +26,7 @@ public interface DownloadMessageMapper {
      * @param id
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,attachment_url as attachmentUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_download_message where id = #{id} and delete_flag = 0")
+    @Select("select id,picture_url as pictureUrl,title,attachment_url as attachmentUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_download_message where id = #{id} and delete_flag = 0")
     DownLoadMessage selectById(Long id);
 
     /**
@@ -35,7 +35,7 @@ public interface DownloadMessageMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,attachment_url as attachmentUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_download_message where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
+    @Select("select id,picture_url as pictureUrl,title,attachment_url as attachmentUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_download_message where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
     List<DownLoadMessage> getAllByPageNum(Integer startNum, Integer endNum);
 
     /**
@@ -50,6 +50,13 @@ public interface DownloadMessageMapper {
      * @param id
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,attachment_url as attachmentUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_download_message where id = #{id}")
+    @Select("select id,picture_url as pictureUrl,title,attachment_url as attachmentUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_download_message where id = #{id}")
     DownLoadMessage getById(Long id);
+
+    /**
+     * 查找出根据id获取tb_banner_manage中最大记录
+     * @return
+     */
+    @Select("select count(*) from tb_download_message where delete_flag = 0")
+    Integer getMaxRecord();
 }

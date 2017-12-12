@@ -2,6 +2,7 @@ package com.sunlands.uedservice.processor;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sunlands.uedservice.bean.PaginationBean;
 import com.sunlands.uedservice.bean.ResultBean;
 import com.sunlands.uedservice.mapper.AllDao;
 import com.sunlands.uedservice.po.BannerManage;
@@ -10,6 +11,7 @@ import com.sunlands.uedservice.utils.SnowflakeIdWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,6 +29,7 @@ public class BannerManageProcessor {
 
     /**
      * TODO
+     *
      * @param param
      * @return
      */
@@ -110,17 +113,26 @@ public class BannerManageProcessor {
 
     public ResultBean getAllByPageNum(String param) {
         ResultBean bannerManageBean = new ResultBean();
+        PaginationBean paginationBean = new PaginationBean();
+        List<BannerManage> bannerManageList;
         int pageNum;
+        int pageSize;
         try {
             pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
+            pageSize = ((JsonObject) jsonParser.parse(param)).get("pageSize").getAsInt();
+            bannerManageList = AllDao.getInstance().getBannerManageDao().getAllByPageNum((pageNum - 1) * pageSize, pageNum * pageSize);
+            paginationBean.setList(bannerManageList);
         } catch (Exception e) {
             bannerManageBean.setCode(0);
             logger.error("参数传递异常！");
             bannerManageBean.setMsg("参数传递异常！");
             return bannerManageBean;
         }
-        List<BannerManage> bannerManageList = AllDao.getInstance().getBannerManageDao().getAllByPageNum((pageNum - 1) * 12, pageNum * 12);
-        bannerManageBean.setData(bannerManageList);
+        paginationBean.setPageSize(pageSize);
+        paginationBean.setMaxRecord(AllDao.getInstance().getBannerManageDao().getMaxRecord());
+        paginationBean.setPageCount(pageNum);
+
+        bannerManageBean.setData(paginationBean);
         bannerManageBean.setMsg("数据获取成功！");
         bannerManageBean.setCode(1);
         return bannerManageBean;

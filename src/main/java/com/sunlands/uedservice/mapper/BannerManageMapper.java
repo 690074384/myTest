@@ -27,7 +27,7 @@ public interface BannerManageMapper {
      * @param id
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_banner_manage where id = #{id} and delete_flag = 0")
+    @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_banner_manage where id = #{id} and delete_flag = 0")
     BannerManage selectById(Long id);
 
     /**
@@ -36,7 +36,7 @@ public interface BannerManageMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_banner_manage where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
+    @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_banner_manage where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
     List<BannerManage> getAllByPageNum(int startNum, int endNum);
 
     /**
@@ -51,6 +51,13 @@ public interface BannerManageMapper {
      * @param id
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_banner_manage where id = #{id}")
+    @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_banner_manage where id = #{id}")
     BannerManage getById(Long id);
+
+    /**
+     * 查找出根据id获取tb_banner_manage中最大记录
+     * @return
+     */
+    @Select("select count(*) from tb_banner_manage where delete_flag = 0")
+    Integer getMaxRecord();
 }

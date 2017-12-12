@@ -26,7 +26,7 @@ public interface PictureWordMapper {
      * @param id
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,article,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_picture_word where id = #{id} and delete_flag = 0")
+    @Select("select id,picture_url as pictureUrl,title,article,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_picture_word where id = #{id} and delete_flag = 0")
     PictureWord selectById(Long id);
 
     /**
@@ -35,7 +35,7 @@ public interface PictureWordMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,article,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_picture_word where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
+    @Select("select id,picture_url as pictureUrl,title,article,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_picture_word where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
     List<PictureWord> getAllByPageNum(int startNum, int endNum);
 
     /**
@@ -50,6 +50,13 @@ public interface PictureWordMapper {
      * @param id
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,article,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence,delete_flag as deleteFlag from tb_picture_word where id = #{id}")
+    @Select("select id,picture_url as pictureUrl,title,article,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_picture_word where id = #{id}")
     PictureWord getById(Long id);
+
+    /**
+     * 查找出根据id获取tb_picture_word中最大记录
+     * @return
+     */
+    @Select("select count(*) from tb_picture_word where delete_flag = 0")
+    Integer getMaxRecord();
 }
