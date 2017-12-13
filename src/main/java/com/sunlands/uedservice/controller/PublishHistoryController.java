@@ -11,10 +11,9 @@ import com.sunlands.uedservice.processor.PublishHistoryProcessor;
 import com.sunlands.uedservice.utils.GsonUtil;
 import com.sunlands.uedservice.utils.ParamUtils;
 import com.sunlands.uedservice.view.View;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,14 +74,13 @@ public class PublishHistoryController {
 
     /**
      * 下载某项记录
-     * @param request
+     * @param id
      * @param response
      */
-    @PostMapping("/goDownload")
+    @GetMapping("/goDownload/{id}")
     public @ResponseBody
-    void goDownload(HttpServletRequest request, HttpServletResponse response) {
-        String param = ParamUtils.getParam(request);
-        ResultBean resultBean = processor.goDownload(param);
+    void goDownload(@PathVariable Long id, HttpServletResponse response) {
+        ResultBean resultBean = processor.goDownload(id);
         String resultStr = gson.toJson(resultBean);
         view.viewString(resultStr, response);
     }

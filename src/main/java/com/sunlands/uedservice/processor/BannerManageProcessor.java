@@ -73,7 +73,6 @@ public class BannerManageProcessor {
         publishHistory.setPictureUrl(pictureUrl);
         publishHistory.setTitle(title);
         publishHistory.setType(type);
-        publishHistory.setDownloadTimes(0);
         publishHistory.setTableChoose("tb_banner_manage");
         publishHistory.setDeleteFlag((byte) 0);
 
@@ -81,6 +80,7 @@ public class BannerManageProcessor {
             AllDao.getInstance().getBannerManageDao().insertOne(bannerManage);
             AllDao.getInstance().getPublishHistoryDao().insertOne(publishHistory);
         } catch (Exception e) {
+            e.printStackTrace();
             bannerManageBean.setCode(0);
             bannerManageBean.setMsg("数据插入失败！");
             return bannerManageBean;
@@ -117,6 +117,7 @@ public class BannerManageProcessor {
         List<BannerManage> bannerManageList;
         int pageNum;
         int pageSize;
+        int maxRecord;
         try {
             pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
             pageSize = ((JsonObject) jsonParser.parse(param)).get("pageSize").getAsInt();
@@ -128,9 +129,10 @@ public class BannerManageProcessor {
             bannerManageBean.setMsg("参数传递异常！");
             return bannerManageBean;
         }
+        maxRecord = AllDao.getInstance().getBannerManageDao().getMaxRecord();
         paginationBean.setPageSize(pageSize);
-        paginationBean.setMaxRecord(AllDao.getInstance().getBannerManageDao().getMaxRecord());
-        paginationBean.setPageCount(pageNum);
+        paginationBean.setMaxRecord(maxRecord);
+        paginationBean.setPageCount((int) Math.ceil((double)maxRecord/pageSize));
 
         bannerManageBean.setData(paginationBean);
         bannerManageBean.setMsg("数据获取成功！");

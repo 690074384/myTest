@@ -16,6 +16,7 @@ import java.util.List;
 public interface PictureWordMapper {
     /**
      * 向tb_picture_word中插入一条记录
+     *
      * @param pictureWord
      */
     @Insert("insert into tb_picture_word(id,picture_url,title,article,type,creator,updater,sequence) values(#{id},#{pictureUrl},#{title},#{article},#{type},#{creator},#{updater},#{sequence})")
@@ -23,23 +24,26 @@ public interface PictureWordMapper {
 
     /**
      * 根据id获取未被删除得单条记录
+     *
      * @param id
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,article,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_picture_word where id = #{id} and delete_flag = 0")
+    @Select("select id,picture_url as pictureUrl,title,article,type,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_picture_word where id = #{id} and delete_flag = 0")
     PictureWord selectById(Long id);
 
     /**
      * 查出tb_picture_word中对应起始值记录
+     *
      * @param startNum
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,article,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_picture_word where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
+    @Select("select id,picture_url as pictureUrl,title,article,type,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_picture_word where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
     List<PictureWord> getAllByPageNum(int startNum, int endNum);
 
     /**
      * 修改tb_picture_word表中某一项对应删除状态位
+     *
      * @param id
      */
     @Update("update tb_picture_word set delete_flag = 1 where id = #{id}")
@@ -47,14 +51,16 @@ public interface PictureWordMapper {
 
     /**
      * 根据id获取tb_picture_word中信息（包含已删除信息）
+     *
      * @param id
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,article,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_picture_word where id = #{id}")
+    @Select("select id,picture_url as pictureUrl,title,article,type,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_picture_word where id = #{id}")
     PictureWord getById(Long id);
 
     /**
      * 查找出根据id获取tb_picture_word中最大记录
+     *
      * @return
      */
     @Select("select count(*) from tb_picture_word where delete_flag = 0")

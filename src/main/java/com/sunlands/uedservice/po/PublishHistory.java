@@ -8,7 +8,6 @@ package com.sunlands.uedservice.po;
 public class PublishHistory extends Root{
     private String title;
     private Byte type;
-    private Integer downloadTimes;
     private String tableChoose;
 
     public String getTitle() {
@@ -27,13 +26,6 @@ public class PublishHistory extends Root{
         this.type = type;
     }
 
-    public Integer getDownloadTimes() {
-        return downloadTimes;
-    }
-
-    public void setDownloadTimes(Integer downloadTimes) {
-        this.downloadTimes = downloadTimes;
-    }
 
     public String getTableChoose() {
         return tableChoose;

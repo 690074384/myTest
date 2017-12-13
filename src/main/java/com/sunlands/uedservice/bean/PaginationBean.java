@@ -15,15 +15,9 @@ public class PaginationBean {
     private int pageCount;
     private int pageSize;
     private int maxRecord;
-    List<? extends Root> list;
+    List list;
 
-    public List<? extends Root> getList() {
-        return list;
-    }
 
-    public void setList(List<? extends Root> list) {
-        this.list = list;
-    }
 
     public int getPageCount() {
         return pageCount;
@@ -43,6 +37,14 @@ public class PaginationBean {
 
     public int getMaxRecord() {
         return maxRecord;
+    }
+
+    public List getList() {
+        return list;
+    }
+
+    public void setList(List list) {
+        this.list = list;
     }
 
     public void setMaxRecord(int maxRecord) {

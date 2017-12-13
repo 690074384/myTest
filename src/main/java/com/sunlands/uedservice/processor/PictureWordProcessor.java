@@ -68,7 +68,6 @@ public class PictureWordProcessor {
         publishHistory.setPictureUrl(pictureUrl);
         publishHistory.setTitle(title);
         publishHistory.setType(type);
-        publishHistory.setDownloadTimes(0);
         publishHistory.setTableChoose("tb_picture_word");
         publishHistory.setDeleteFlag((byte) 0);
 
@@ -116,6 +115,7 @@ public class PictureWordProcessor {
         PaginationBean paginationBean = new PaginationBean();
         int pageNum;
         int pageSize;
+        int maxRecord;
         List<PictureWord> pictureWordList;
         try {
             pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
@@ -129,9 +129,10 @@ public class PictureWordProcessor {
             return pictureWordBean;
         }
 
+        maxRecord = AllDao.getInstance().getPictureWordDao().getMaxRecord();
         paginationBean.setPageSize(pageSize);
-        paginationBean.setPageCount(pageNum);
-        paginationBean.setMaxRecord(AllDao.getInstance().getPictureWordDao().getMaxRecord());
+        paginationBean.setMaxRecord(maxRecord);
+        paginationBean.setPageCount((int) Math.ceil((double)maxRecord/pageSize));
 
         pictureWordBean.setData(paginationBean);
         pictureWordBean.setMsg("数据获取成功！");

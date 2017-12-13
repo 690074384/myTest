@@ -9,7 +9,6 @@ import java.util.Date;
  */
 public class PublishMessage extends Root {
 	private Byte type;
-	private Integer downloadTimes;
 	private String creator;
 	private String updater;
 	private Date createTime;
@@ -23,14 +22,6 @@ public class PublishMessage extends Root {
 	
 	public void setType(Byte type) {
 		this.type = type;
-	}
-	
-	public Integer getDownloadTimes() {
-		return downloadTimes;
-	}
-	
-	public void setDownloadTimes(Integer downloadTimes) {
-		this.downloadTimes = downloadTimes;
 	}
 	
 	public String getCreator() {

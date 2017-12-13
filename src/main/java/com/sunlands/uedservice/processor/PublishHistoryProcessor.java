@@ -28,6 +28,7 @@ public class PublishHistoryProcessor {
         PaginationBean paginationBean = new PaginationBean();
         int pageSize;
         int pageNum;
+        int maxRecord;
         List<PublishHistory> publishHistoryList;
         try {
             pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
@@ -41,9 +42,11 @@ public class PublishHistoryProcessor {
             e.printStackTrace();
             return publishHistoryBean;
         }
+
+        maxRecord = AllDao.getInstance().getPublishHistoryDao().getMaxRecord();
         paginationBean.setPageSize(pageSize);
-        paginationBean.setPageCount(pageNum);
-        paginationBean.setMaxRecord(AllDao.getInstance().getPublishHistoryDao().getMaxRecord());
+        paginationBean.setMaxRecord(maxRecord);
+        paginationBean.setPageCount((int) Math.ceil((double)maxRecord/pageSize));
 
         publishHistoryBean.setData(paginationBean);
         publishHistoryBean.setMsg("数据获取成功！");
@@ -58,6 +61,7 @@ public class PublishHistoryProcessor {
         int pageNum;
         int type;
         int pageSize;
+        int maxRecord;
         try {
             pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
             pageSize = ((JsonObject) jsonParser.parse(param)).get("pageSize").getAsInt();
@@ -72,9 +76,10 @@ public class PublishHistoryProcessor {
             return oneTypePublishHistoryBean;
         }
 
+        maxRecord = AllDao.getInstance().getPublishHistoryDao().getOneTypeMaxRecord(type);
         paginationBean.setPageSize(pageSize);
-        paginationBean.setPageCount(pageNum);
-        paginationBean.setMaxRecord(AllDao.getInstance().getPublishHistoryDao().getOneTypeMaxRecord(type));
+        paginationBean.setMaxRecord(maxRecord);
+        paginationBean.setPageCount((int) Math.ceil((double)maxRecord/pageSize));
 
         oneTypePublishHistoryBean.setData(paginationBean);
         oneTypePublishHistoryBean.setMsg("数据获取成功！");
@@ -131,19 +136,8 @@ public class PublishHistoryProcessor {
         return updateDeleteFlagBean;
     }
 
-    public ResultBean goDownload(String param) {
+    public ResultBean goDownload(Long id) {
         ResultBean downLoadMessageBean = new ResultBean();
-        Long id;
-        try {
-            id = ((JsonObject) jsonParser.parse(param)).get("id").getAsLong();
-        } catch (Exception e) {
-            e.printStackTrace();
-            downLoadMessageBean.setMsg("参数传递异常！");
-            downLoadMessageBean.setCode(0);
-            logger.error("参数传递异常！");
-            return downLoadMessageBean;
-        }
-
         String tableChoose = AllDao.getInstance().getPublishHistoryDao().getTableChooseById(id);
         if (tableChoose == null) {
             downLoadMessageBean.setMsg("该id记录不存在或已被删除！");

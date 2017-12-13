@@ -69,7 +69,6 @@ public class DownloadMessageProcessor {
         publishHistory.setPictureUrl(pictureUrl);
         publishHistory.setTitle(title);
         publishHistory.setType(type);
-        publishHistory.setDownloadTimes(0);
         publishHistory.setTableChoose("tb_download_message");
         publishHistory.setDeleteFlag((byte) 0);
 
@@ -113,6 +112,7 @@ public class DownloadMessageProcessor {
         List<DownLoadMessage> downLoadMessageList;
         int pageNum;
         int pageSize;
+        int maxRecord;
         try {
             pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
             pageSize = ((JsonObject) jsonParser.parse(param)).get("pageSize").getAsInt();
@@ -125,9 +125,11 @@ public class DownloadMessageProcessor {
             logger.error("参数传递异常！");
             return downloadMessageBean;
         }
+
+        maxRecord = AllDao.getInstance().getDownloadMessageDao().getMaxRecord();
         paginationBean.setPageSize(pageSize);
-        paginationBean.setMaxRecord(AllDao.getInstance().getDownloadMessageDao().getMaxRecord());
-        paginationBean.setPageCount(pageNum);
+        paginationBean.setMaxRecord(maxRecord);
+        paginationBean.setPageCount((int) Math.ceil((double)maxRecord/pageSize));
 
         downloadMessageBean.setData(paginationBean);
         downloadMessageBean.setMsg("数据获取成功！");

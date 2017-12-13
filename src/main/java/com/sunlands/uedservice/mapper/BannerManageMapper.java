@@ -17,30 +17,34 @@ public interface BannerManageMapper {
 
     /**
      * 向tb_banner_manage表中插入一条记录
-      * @param bannerManage
+     *
+     * @param bannerManage
      */
     @Insert("insert into tb_banner_manage(id,picture_url,title,type,creator,updater,sequence) values(#{id},#{pictureUrl},#{title},#{type},#{creator},#{updater},#{sequence})")
     void insertOne(BannerManage bannerManage);
 
     /**
      * 根据id获取未被删除得单条记录
+     *
      * @param id
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_banner_manage where id = #{id} and delete_flag = 0")
+    @Select("select id,picture_url as pictureUrl,type,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_banner_manage where id = #{id} and delete_flag = 0")
     BannerManage selectById(Long id);
 
     /**
      * 查出tb_banner_manage中对应起始值记录
+     *
      * @param startNum
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_banner_manage where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
+    @Select("select id,title,picture_url as pictureUrl,type,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_banner_manage where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
     List<BannerManage> getAllByPageNum(int startNum, int endNum);
 
     /**
      * 修改tb_banner_manage表中某一项对应删除状态位
+     *
      * @param id
      */
     @Update("update tb_banner_manage set delete_flag = 1 where id = #{id}")
@@ -48,14 +52,16 @@ public interface BannerManageMapper {
 
     /**
      * 根据id获取tb_banner_manage中信息（包含已删除信息）
+     *
      * @param id
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,type,download_times as downloadTimes,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_banner_manage where id = #{id}")
+    @Select("select id,picture_url as pictureUrl,type,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_banner_manage where id = #{id}")
     BannerManage getById(Long id);
 
     /**
      * 查找出根据id获取tb_banner_manage中最大记录
+     *
      * @return
      */
     @Select("select count(*) from tb_banner_manage where delete_flag = 0")
