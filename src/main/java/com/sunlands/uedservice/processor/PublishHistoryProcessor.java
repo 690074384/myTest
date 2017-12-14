@@ -168,5 +168,10 @@ public class PublishHistoryProcessor {
         downLoadMessageBean.setCode(1);
         return downLoadMessageBean;
     }
-
+	
+	public ResultBean getOneDetail(String param) {
+        ResultBean downLoadMessageBean = new ResultBean();
+        //TODO
+        return downLoadMessageBean;
+	}
 }

@@ -84,5 +84,19 @@ public class PublishHistoryController {
         String resultStr = gson.toJson(resultBean);
         view.viewString(resultStr, response);
     }
+    
+    /**
+     * 使用get或者post请求？
+     * @param request
+     * @param response
+     */
+    @PostMapping("/get")
+    public @ResponseBody
+    void get(HttpServletRequest request, HttpServletResponse response) {
+        String param = ParamUtils.getParam(request);
+        ResultBean resultBean = processor.getOneDetail(param);
+        String resultStr = gson.toJson(resultBean);
+        view.viewString(resultStr, response);
+    }
 
 }
