@@ -1,17 +1,22 @@
 package com.sunlands.uedservice.controller.background;
 
 import com.google.gson.Gson;
+import com.sunlands.uedservice.bean.DownloadLocationBean;
 import com.sunlands.uedservice.bean.ResultBean;
+import com.sunlands.uedservice.utils.FileUtil;
 import com.sunlands.uedservice.utils.GsonUtil;
 import com.sunlands.uedservice.utils.ParamUtils;
 import com.sunlands.uedservice.view.View;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author : lvpenghui
@@ -25,35 +30,76 @@ public class UploadController {
 
     private static Gson gson = GsonUtil.getGson();
     private static View view = new View();
+    @Autowired
+    private DownloadLocationBean downloadLocationBean;
+
+
+
     /**
-     * 上传附件
-     * @param request
+     * 图片上传
+     *
+     * @param file
      * @param response
+     * @return
      */
-    @PostMapping("/attachment")
+    @RequestMapping(value = "/attachment", method = RequestMethod.POST)
     public @ResponseBody
-    void attachment(HttpServletRequest request, HttpServletResponse response) {
-        String param = ParamUtils.getParam(request);
+    void attachment(@RequestParam("file") MultipartFile file,
+                 HttpServletResponse response) {
         ResultBean resultBean = new ResultBean();
-//TODO All
+        Map<String, String> map = new HashMap<>(2);
+        String filePath = downloadLocationBean.getAttachmentUrl();
+        try {
+            filePath = FileUtil.uploadFile(file, filePath);
+        } catch (Exception e) {
+            resultBean.setMsg("附件上传失败！");
+            resultBean.setCode(0);
+            view.viewString(gson.toJson(resultBean), response);
+        }
+        map.put("attachmentUrl", filePath);
+        resultBean.setData(map);
+        resultBean.setMsg("附件上传成功！");
+        resultBean.setCode(1);
         String resultStr = gson.toJson(resultBean);
         view.viewString(resultStr, response);
     }
 
     /**
-     * 上传图片
-     * @param request
+     * 图片上传
+     *
+     * @param file
      * @param response
+     * @return
      */
-    @PostMapping("/picture")
+    @RequestMapping(value = "/picture", method = RequestMethod.POST)
     public @ResponseBody
-    void picture(HttpServletRequest request, HttpServletResponse response) {
-        String param = ParamUtils.getParam(request);
+    void picture(@RequestParam("file") MultipartFile file,
+                   HttpServletResponse response) {
         ResultBean resultBean = new ResultBean();
-
+        Map<String, String> map = new HashMap<>(2);
+        String filePath = downloadLocationBean.getPictureUrl();
+        try {
+            filePath = FileUtil.uploadFile(file, filePath);
+        } catch (Exception e) {
+            resultBean.setMsg("图片上传失败！");
+            resultBean.setCode(0);
+            view.viewString(gson.toJson(resultBean), response);
+        }
+        map.put("pictureUrl", filePath);
+        resultBean.setData(map);
+        resultBean.setMsg("图片上传成功！");
+        resultBean.setCode(1);
         String resultStr = gson.toJson(resultBean);
         view.viewString(resultStr, response);
     }
 
+    /**
+     * 测试方法
+     * @return
+     */
+    @RequestMapping(value = "/gouploadimg", method = RequestMethod.GET)
+    public ModelAndView goUploadImg() {
+        return new ModelAndView("uploadimg");
+    }
 
 }

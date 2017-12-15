@@ -14,6 +14,11 @@ spring:
   thymeleaf:
     encoding: UTF-8
     prefix: classpath:/templates/
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
 
 #mybatis
 mybatis:
@@ -23,8 +28,8 @@ mybatis:
 cas:
   casServer: http://172.16.116.136:9091/cas
   serverName: http://localhost:8081
-  ignoreAddress: /*|/*.html
+  ignoreAddress: /*.html
 
 #download-location
-pictureUrl: E://
-attachmentUrl: E://
+pictureUrl: E:/images/
+attachmentUrl: E:/pictures/

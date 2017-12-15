@@ -5,11 +5,14 @@ import com.sunlands.uedservice.bean.ResultBean;
 import com.sunlands.uedservice.utils.GsonUtil;
 import com.sunlands.uedservice.utils.ParamUtils;
 import com.sunlands.uedservice.view.View;
+import org.jasig.cas.client.authentication.AttributePrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 登录管理
@@ -28,12 +31,19 @@ public class UserInfoController {
      * @param request
      * @param response
      */
-    @PostMapping("/get")
+    @GetMapping("/get")
     public @ResponseBody
     void list(HttpServletRequest request, HttpServletResponse response) {
-        String param = ParamUtils.getParam(request);
         ResultBean resultBean = new ResultBean();
-
+        AttributePrincipal principal =(AttributePrincipal)request.getUserPrincipal();
+        String name =  principal.getName();
+        String account = name + "@sunlands.com";
+        Map<String,String> map = new HashMap<>();
+        map.put("name",name);
+        map.put("account",account);
+        resultBean.setCode(1);
+        resultBean.setMsg("获取成功！");
+        resultBean.setData(map);
         String resultStr = gson.toJson(resultBean);
         view.viewString(resultStr, response);
     }

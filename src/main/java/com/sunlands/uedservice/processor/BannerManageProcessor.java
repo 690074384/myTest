@@ -29,7 +29,7 @@ public class BannerManageProcessor {
     private static JsonParser jsonParser = new JsonParser();
 
     /**
-     * TODO
+     * 插入一条banner记录
      *
      * @param param
      * @return
