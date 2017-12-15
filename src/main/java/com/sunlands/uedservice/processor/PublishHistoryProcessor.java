@@ -187,6 +187,7 @@ public class PublishHistoryProcessor {
 
         try {
             pictureWord = AllDao.getInstance().getPictureWordDao().getSharedMessage(id);
+            AllDao.getInstance().getPictureWordDao().updateViewCount(id);
         } catch (Exception e) {
             sharedBean.setMsg("详细信息获取失败！");
             sharedBean.setCode(0);

@@ -12,7 +12,6 @@ import org.springframework.context.ApplicationContext;
 public class AllDao {
     private BannerManageMapper bannerManageDao;
     private DownloadMessageMapper downloadMessageDao;
-    private LoginMapper loginDao;
     private PictureWordMapper pictureWordDao;
     private PublishHistoryMapper publishHistoryDao;
 
@@ -39,14 +38,6 @@ public class AllDao {
 
     public void setDownloadMessageDao(DownloadMessageMapper downloadMessageDao) {
         this.downloadMessageDao = downloadMessageDao;
-    }
-
-    public LoginMapper getLoginDao() {
-        return loginDao;
-    }
-
-    public void setLoginDao(LoginMapper loginDao) {
-        this.loginDao = loginDao;
     }
 
     public PictureWordMapper getPictureWordDao() {

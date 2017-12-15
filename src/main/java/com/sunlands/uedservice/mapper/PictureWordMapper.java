@@ -74,4 +74,11 @@ public interface PictureWordMapper {
      */
     @Select("select viewCount,title,article ,create_time as createTime from tb_picture_word where id = #{id} and delete_flag=0")
     PictureWord getSharedMessage(Long id);
+
+    /**
+     * 增加浏览次数
+     * @param id
+     */
+    @Update("update tb_picture_word set viewCount = viewCount+1 where id = #{id}")
+    void updateViewCount(Long id);
 }
