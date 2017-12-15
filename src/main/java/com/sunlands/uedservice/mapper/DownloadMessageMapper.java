@@ -19,7 +19,7 @@ public interface DownloadMessageMapper {
      *
      * @param downLoadMessage
      */
-    @Insert("insert into tb_download_message(id,picture_url,title,attachment_url,type,creator,updater,sequence) values(#{id},#{pictureUrl},#{title},#{attachmentUrl},#{type},#{creator},#{updater},#{sequence})")
+    @Insert("insert into tb_download_message(id,picture_url,title,attachment_url,type,creator,updater) values(#{id},#{pictureUrl},#{title},#{attachmentUrl},#{type},#{creator},#{updater})")
     void insertOne(DownLoadMessage downLoadMessage);
 
     /**

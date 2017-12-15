@@ -20,7 +20,7 @@ public interface BannerManageMapper {
      *
      * @param bannerManage
      */
-    @Insert("insert into tb_banner_manage(id,picture_url,title,type,creator,updater,sequence) values(#{id},#{pictureUrl},#{title},#{type},#{creator},#{updater},#{sequence})")
+    @Insert("insert into tb_banner_manage(id,picture_url,type,creator,updater) values(#{id},#{pictureUrl},#{type},#{creator},#{updater})")
     void insertOne(BannerManage bannerManage);
 
     /**

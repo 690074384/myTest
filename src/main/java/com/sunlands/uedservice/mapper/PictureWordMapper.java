@@ -19,7 +19,7 @@ public interface PictureWordMapper {
      *
      * @param pictureWord
      */
-    @Insert("insert into tb_picture_word(id,picture_url,title,article,type,creator,updater,sequence) values(#{id},#{pictureUrl},#{title},#{article},#{type},#{creator},#{updater},#{sequence})")
+    @Insert("insert into tb_picture_word(id,picture_url,title,article,type,creator,updater) values(#{id},#{pictureUrl},#{title},#{article},#{type},#{creator},#{updater})")
     void insertOne(PictureWord pictureWord);
 
     /**

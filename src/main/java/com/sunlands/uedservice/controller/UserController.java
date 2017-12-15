@@ -1,4 +1,4 @@
-package com.sunlands.uedservice.controller.background;
+package com.sunlands.uedservice.controller;
 
 import com.google.gson.Gson;
 import com.sunlands.uedservice.bean.CasConfigBean;
@@ -20,8 +20,8 @@ import java.util.Enumeration;
  * @date 2017/12/6 10:50
  */
 @Controller
-@RequestMapping("/background/login")
-public class LoginController {
+@RequestMapping("/user")
+public class UserController {
 
     private static Gson gson = GsonUtil.getGson();
     private static View view = new View();

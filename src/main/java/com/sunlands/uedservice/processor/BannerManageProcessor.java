@@ -27,7 +27,6 @@ public class BannerManageProcessor {
 
     private static Logger logger = LoggerFactory.getLogger(BannerManage.class);
     private static JsonParser jsonParser = new JsonParser();
-    private static String SEQUENCE = "sequence";
 
     /**
      * TODO
@@ -38,19 +37,13 @@ public class BannerManageProcessor {
     public ResultBean insert(String param) {
         String pictureUrl;
         Byte type;
-        Integer sequence = 0;
         JsonObject bannerManageJson;
-        String title;
         ResultBean bannerManageBean = new ResultBean();
         Long id = SnowflakeIdWorker.getSnowFlakeId();
         try {
             bannerManageJson = (JsonObject) jsonParser.parse(param);
-            title = bannerManageJson.get("title").getAsString();
             pictureUrl = bannerManageJson.get("pictureUrl").getAsString();
             type = bannerManageJson.get("type").getAsByte();
-            if (bannerManageJson.has(SEQUENCE)) {
-                sequence = bannerManageJson.get(SEQUENCE).getAsInt();
-            }
         } catch (Exception e) {
             logger.error("参数传递异常！");
             bannerManageBean.setCode(0);
@@ -60,10 +53,8 @@ public class BannerManageProcessor {
 
         BannerManage bannerManage = new BannerManage();
         bannerManage.setId(id);
-        bannerManage.setSequence(sequence);
         bannerManage.setType(type);
         bannerManage.setPictureUrl(pictureUrl);
-        bannerManage.setTitle(title);
 
         // TODO 需要获取session中的用户
         bannerManage.setUpdater("lvpenghui");
@@ -73,10 +64,10 @@ public class BannerManageProcessor {
         PublishHistory publishHistory = new PublishHistory();
         publishHistory.setId(id);
         publishHistory.setPictureUrl(pictureUrl);
-        publishHistory.setTitle(title);
         publishHistory.setType(type);
         publishHistory.setTableChoose("tb_banner_manage");
         publishHistory.setDeleteFlag((byte) 0);
+        publishHistory.setTitle("");
 
         try {
             AllDao.getInstance().getBannerManageDao().insertOne(bannerManage);
@@ -89,7 +80,6 @@ public class BannerManageProcessor {
         }
 
         bannerManageBean.setCode(1);
-        bannerManageBean.setData(AllDao.getInstance().getBannerManageDao().selectById(id));
         bannerManageBean.setMsg("数据插入成功！");
         return bannerManageBean;
     }

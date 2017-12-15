@@ -42,7 +42,6 @@ public class BannerManageController {
         view.viewString(resultStr, response);
     }
 
-
     /**
      * banner中插入一条记录
      *
@@ -58,19 +57,5 @@ public class BannerManageController {
         String resultStr = gson.toJson(resultBean);
         view.viewString(resultStr, response);
     }
-
-    /**
-     * 获取一条banner记录
-     * @param request
-     * @param response
-     *//*
-    @PostMapping("/get")
-    public @ResponseBody
-    void get(HttpServletRequest request, HttpServletResponse response) {
-        String param = ParamUtils.getParam(request);
-        ResultBean resultBean = processor.getById(param);
-        String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
-    }*/
 
 }

@@ -23,14 +23,12 @@ public class PictureWordProcessor {
 
     private static Logger logger = LoggerFactory.getLogger(PictureWord.class);
     private static JsonParser jsonParser = new JsonParser();
-    private static String SEQUENCE = "sequence";
 
     public ResultBean insert(String param) {
         String pictureUrl;
         Byte type;
         String title;
         String article;
-        Integer sequence = 0;
         JsonObject pictureWordJson;
         ResultBean pictureWordBean = new ResultBean();
         Long id = SnowflakeIdWorker.getSnowFlakeId();
@@ -40,9 +38,6 @@ public class PictureWordProcessor {
             type = pictureWordJson.get("type").getAsByte();
             title = pictureWordJson.get("title").getAsString();
             article = pictureWordJson.get("article").getAsString();
-            if (pictureWordJson.has(SEQUENCE)) {
-                sequence = pictureWordJson.get("sequence").getAsInt();
-            }
         } catch (Exception e) {
             logger.error("参数传递异常！");
             pictureWordBean.setCode(0);
@@ -52,7 +47,6 @@ public class PictureWordProcessor {
 
         PictureWord pictureWord = new PictureWord();
         pictureWord.setId(id);
-        pictureWord.setSequence(sequence);
         pictureWord.setType(type);
         pictureWord.setPictureUrl(pictureUrl);
         pictureWord.setTitle(title);
@@ -80,7 +74,6 @@ public class PictureWordProcessor {
             return pictureWordBean;
         }
         pictureWordBean.setCode(1);
-        pictureWordBean.setData(AllDao.getInstance().getPictureWordDao().selectById(id));
         pictureWordBean.setMsg("数据插入成功！");
         return pictureWordBean;
     }

@@ -23,14 +23,12 @@ public class DownloadMessageProcessor {
 
     private static Logger logger = LoggerFactory.getLogger(DownLoadMessage.class);
     private static JsonParser jsonParser = new JsonParser();
-    private static String SEQUENCE = "sequence";
 
     public ResultBean insert(String param) {
 
         Long id = SnowflakeIdWorker.getSnowFlakeId();
         String pictureUrl;
         Byte type;
-        Integer sequence = 0;
         JsonObject downloadMessageJson;
         ResultBean downloadMessageBean = new ResultBean();
         String title;
@@ -42,9 +40,6 @@ public class DownloadMessageProcessor {
             pictureUrl = downloadMessageJson.get("pictureUrl").getAsString();
             type = downloadMessageJson.get("type").getAsByte();
             attachmentUrl = downloadMessageJson.get("attachmentUrl").getAsString();
-            if (downloadMessageJson.has(SEQUENCE)) {
-                sequence = downloadMessageJson.get("sequence").getAsInt();
-            }
         } catch (Exception e) {
             logger.error("参数传递异常！");
             downloadMessageBean.setCode(0);
@@ -54,7 +49,6 @@ public class DownloadMessageProcessor {
 
         DownLoadMessage downLoadMessage = new DownLoadMessage();
         downLoadMessage.setId(id);
-        downLoadMessage.setSequence(sequence);
         downLoadMessage.setType(type);
         downLoadMessage.setPictureUrl(pictureUrl);
         downLoadMessage.setTitle(title);
@@ -83,7 +77,6 @@ public class DownloadMessageProcessor {
         }
 
         downloadMessageBean.setCode(1);
-        downloadMessageBean.setData(AllDao.getInstance().getDownloadMessageDao().selectById(id));
         downloadMessageBean.setMsg("数据插入成功！");
         return downloadMessageBean;
     }
