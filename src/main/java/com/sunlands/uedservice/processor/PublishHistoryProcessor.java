@@ -5,12 +5,19 @@ import com.google.gson.JsonParser;
 import com.sunlands.uedservice.bean.PaginationBean;
 import com.sunlands.uedservice.bean.ResultBean;
 import com.sunlands.uedservice.mapper.AllDao;
+import com.sunlands.uedservice.po.DownLoadMessage;
 import com.sunlands.uedservice.po.PictureWord;
 import com.sunlands.uedservice.po.PublishHistory;
+import com.sunlands.uedservice.utils.NameUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
 
 /**
  * @Author : lvpenghui
@@ -46,7 +53,7 @@ public class PublishHistoryProcessor {
         maxRecord = AllDao.getInstance().getPublishHistoryDao().getMaxRecord();
         paginationBean.setPageSize(pageSize);
         paginationBean.setMaxRecord(maxRecord);
-        paginationBean.setPageCount((int) Math.ceil((double)maxRecord/pageSize));
+        paginationBean.setPageCount((int) Math.ceil((double) maxRecord / pageSize));
 
         publishHistoryBean.setData(paginationBean);
         publishHistoryBean.setMsg("数据获取成功！");
@@ -58,14 +65,25 @@ public class PublishHistoryProcessor {
         ResultBean oneTypePublishHistoryBean = new ResultBean();
         PaginationBean paginationBean = new PaginationBean();
         List<PublishHistory> oneTypePublishHistoryList;
-        int pageNum;
-        int type;
-        int pageSize;
+        JsonObject oneTypeJson;
+        int pageNum = 1;
+        int type = 1;
+        int pageSize = 12;
         int maxRecord;
         try {
-            pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
-            pageSize = ((JsonObject) jsonParser.parse(param)).get("pageSize").getAsInt();
-            type = ((JsonObject) jsonParser.parse(param)).get("type").getAsInt();
+            if (param != null && param.trim().length() != 0) {
+                oneTypeJson = (JsonObject) jsonParser.parse(param);
+                if (oneTypeJson.has(NameUtil.PAGENUM)) {
+                    pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
+                }
+                if (oneTypeJson.has(NameUtil.PAGESIZE)) {
+                    pageSize = ((JsonObject) jsonParser.parse(param)).get("pageSize").getAsInt();
+                }
+                if (oneTypeJson.has(NameUtil.TYPE)) {
+                    type = ((JsonObject) jsonParser.parse(param)).get("type").getAsInt();
+                }
+            }
+
             oneTypePublishHistoryList = AllDao.getInstance().getPublishHistoryDao().getOneTypeByPageNum(type, (pageNum - 1) * pageSize, pageNum * pageSize);
             paginationBean.setList(oneTypePublishHistoryList);
         } catch (Exception e) {
@@ -79,7 +97,7 @@ public class PublishHistoryProcessor {
         maxRecord = AllDao.getInstance().getPublishHistoryDao().getOneTypeMaxRecord(type);
         paginationBean.setPageSize(pageSize);
         paginationBean.setMaxRecord(maxRecord);
-        paginationBean.setPageCount((int) Math.ceil((double)maxRecord/pageSize));
+        paginationBean.setPageCount((int) Math.ceil((double) maxRecord / pageSize));
 
         oneTypePublishHistoryBean.setData(paginationBean);
         oneTypePublishHistoryBean.setMsg("数据获取成功！");
@@ -112,15 +130,12 @@ public class PublishHistoryProcessor {
             switch (tableChoose) {
                 case "tb_banner_manage":
                     AllDao.getInstance().getBannerManageDao().updateDeleteFlagById(id);
-                    updateDeleteFlagBean.setData(AllDao.getInstance().getBannerManageDao().getById(id));
                     break;
                 case "tb_download_message":
                     AllDao.getInstance().getDownloadMessageDao().updateDeleteFlagById(id);
-                    updateDeleteFlagBean.setData(AllDao.getInstance().getDownloadMessageDao().getById(id));
                     break;
                 default:
                     AllDao.getInstance().getPictureWordDao().updateDeleteFlagById(id);
-                    updateDeleteFlagBean.setData(AllDao.getInstance().getPictureWordDao().getById(id));
                     break;
             }
         } catch (Exception e) {
@@ -136,42 +151,61 @@ public class PublishHistoryProcessor {
         return updateDeleteFlagBean;
     }
 
-    public ResultBean goDownload(Long id) {
-        ResultBean downLoadMessageBean = new ResultBean();
-        String tableChoose = AllDao.getInstance().getPublishHistoryDao().getTableChooseById(id);
-        if (tableChoose == null) {
-            downLoadMessageBean.setMsg("该id记录不存在或已被删除！");
-            downLoadMessageBean.setCode(0);
-            logger.error("该id记录不存在或已被删除！");
-            return downLoadMessageBean;
+    public String goDownload(Long id) {
+        DownLoadMessage downLoadMessage = AllDao.getInstance().getDownloadMessageDao().selectById(id);
+        if (downLoadMessage == null) {
+            return null;
+        }else{
+            return downLoadMessage.getAttachmentUrl();
         }
-        try {
-            switch (tableChoose) {
-                case "tb_banner_manage":
-                    downLoadMessageBean.setData(AllDao.getInstance().getBannerManageDao().getById(id).getPictureUrl());
-                    break;
-                case "tb_download_message":
-                    downLoadMessageBean.setData(AllDao.getInstance().getDownloadMessageDao().getById(id).getAttachmentUrl());
-                    break;
-                default:
-                    downLoadMessageBean.setData(AllDao.getInstance().getPictureWordDao().getById(id).getArticle());
-                    break;
-            }
-        } catch (Exception e) {
-            downLoadMessageBean.setMsg("信息获取失败！");
-            downLoadMessageBean.setCode(0);
-            logger.error("信息获取失败！");
-            e.printStackTrace();
-            return downLoadMessageBean;
-        }
-        downLoadMessageBean.setMsg("信息获取成功！");
-        downLoadMessageBean.setCode(1);
-        return downLoadMessageBean;
+
     }
-	
-	public ResultBean getOneDetail(String param) {
-        ResultBean downLoadMessageBean = new ResultBean();
-        //TODO
-        return downLoadMessageBean;
-	}
+
+
+    public ResultBean getShared(String param) {
+        ResultBean sharedBean = new ResultBean();
+        Long id;
+        PictureWord pictureWord;
+        PictureWord returnPictureWord = new PictureWord();
+        try {
+            id = ((JsonObject) jsonParser.parse(param)).get("id").getAsLong();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sharedBean.setMsg("参数传递异常！");
+            logger.error("参数传递异常！");
+            sharedBean.setCode(0);
+            return sharedBean;
+        }
+
+        pictureWord = AllDao.getInstance().getPictureWordDao().selectById(id);
+        if (pictureWord == null) {
+            sharedBean.setMsg("该id记录不存在或已被删除！");
+            logger.error("该id记录不存在或已被删除！");
+            sharedBean.setCode(0);
+            return sharedBean;
+        }
+
+        try {
+            pictureWord = AllDao.getInstance().getPictureWordDao().getSharedMessage(id);
+        } catch (Exception e) {
+            sharedBean.setMsg("详细信息获取失败！");
+            sharedBean.setCode(0);
+            logger.error("详细信息获取失败！");
+            e.printStackTrace();
+            return sharedBean;
+        }
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
+        Date d = pictureWord.getCreateTime();
+
+        returnPictureWord.setDate(df.format(d));
+        returnPictureWord.setArticle(pictureWord.getArticle());
+        returnPictureWord.setViewCount(pictureWord.getViewCount());
+        returnPictureWord.setTitle(pictureWord.getTitle());
+
+        sharedBean.setData(returnPictureWord);
+        sharedBean.setMsg("信息获取成功！");
+        sharedBean.setCode(1);
+        return sharedBean;
+    }
 }

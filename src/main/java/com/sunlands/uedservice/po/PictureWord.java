@@ -6,6 +6,24 @@ package com.sunlands.uedservice.po;
  */
 public class PictureWord extends PublishMessage{
     private String article;
+    private Integer viewCount;
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Integer getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
 
     public String getArticle() {
         return article;

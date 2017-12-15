@@ -1,4 +1,4 @@
-package com.sunlands.uedservice.controller;
+package com.sunlands.uedservice.controller.background;
 
 /**
  * @author lvpenghui
@@ -11,18 +11,14 @@ import com.sunlands.uedservice.processor.PublishHistoryProcessor;
 import com.sunlands.uedservice.utils.GsonUtil;
 import com.sunlands.uedservice.utils.ParamUtils;
 import com.sunlands.uedservice.view.View;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
-@RequestMapping("/history")
+@RequestMapping("/background/history")
 public class PublishHistoryController {
 
     private static PublishHistoryProcessor processor = new PublishHistoryProcessor();
@@ -68,33 +64,6 @@ public class PublishHistoryController {
     void delete(HttpServletRequest request, HttpServletResponse response) {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.updateDeleteFlagById(param);
-        String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
-    }
-
-    /**
-     * 下载某项记录
-     * @param id
-     * @param response
-     */
-    @GetMapping("/goDownload/{id}")
-    public @ResponseBody
-    void goDownload(@PathVariable Long id, HttpServletResponse response) {
-        ResultBean resultBean = processor.goDownload(id);
-        String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
-    }
-    
-    /**
-     * 使用get或者post请求？
-     * @param request
-     * @param response
-     */
-    @PostMapping("/get")
-    public @ResponseBody
-    void get(HttpServletRequest request, HttpServletResponse response) {
-        String param = ParamUtils.getParam(request);
-        ResultBean resultBean = processor.getOneDetail(param);
         String resultStr = gson.toJson(resultBean);
         view.viewString(resultStr, response);
     }

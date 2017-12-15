@@ -20,7 +20,11 @@ mybatis:
   type-aliases-package: com.sunlands.uedService.po
 
 #cas
-casServer: http://172.16.116.136:9091/cas
-serverName: http://localhost:8081
-ignoreAddress: /*|/*.html
+cas:
+  casServer: http://172.16.116.136:9091/cas
+  serverName: http://localhost:8081
+  ignoreAddress: /*|/*.html
 
+#download-location
+pictureUrl: E://
+attachmentUrl: E://

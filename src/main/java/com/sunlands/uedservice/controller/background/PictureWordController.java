@@ -1,4 +1,4 @@
-package com.sunlands.uedservice.controller;
+package com.sunlands.uedservice.controller.background;
 
 import com.google.gson.Gson;
 import com.sunlands.uedservice.bean.ResultBean;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2017/12/6 11:18
  */
 @Controller
-@RequestMapping("/pictureWord")
+@RequestMapping("/background/pictureWord")
 public class PictureWordController {
     private static PictureWordProcessor processor = new PictureWordProcessor();
     private static Gson gson = GsonUtil.getGson();

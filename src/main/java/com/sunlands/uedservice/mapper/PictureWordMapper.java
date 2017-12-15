@@ -65,4 +65,13 @@ public interface PictureWordMapper {
      */
     @Select("select count(*) from tb_picture_word where delete_flag = 0")
     Integer getMaxRecord();
+
+    /**
+     * 获取精彩分享信息
+     *
+     * @param id
+     * @return
+     */
+    @Select("select viewCount,title,article ,create_time as createTime from tb_picture_word where id = #{id} and delete_flag=0")
+    PictureWord getSharedMessage(Long id);
 }

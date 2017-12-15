@@ -41,7 +41,7 @@ public interface PublishHistoryMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,type from tb_publish_history where delete_flag = 0 and type = #{arg0} limit #{arg1},#{arg2}")
+    @Select("select id,picture_url as pictureUrl,title from tb_publish_history where delete_flag = 0 and type = #{arg0} limit #{arg1},#{arg2}")
     List<PublishHistory> getOneTypeByPageNum(int type , int startNum, int endNum);
 
     /**

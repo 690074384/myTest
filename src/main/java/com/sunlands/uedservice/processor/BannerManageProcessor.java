@@ -12,7 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -104,8 +106,17 @@ public class BannerManageProcessor {
             return bannerManageBean;
         }
 
-        BannerManage bannerManage = AllDao.getInstance().getBannerManageDao().getById(id);
-        bannerManageBean.setData(bannerManage);
+        BannerManage bannerManage = AllDao.getInstance().getBannerManageDao().selectById(id);
+        if (bannerManage == null) {
+            logger.error("该id记录不存在或已被删除！");
+            bannerManageBean.setCode(0);
+            bannerManageBean.setMsg("该id记录不存在或已被删除！");
+            return bannerManageBean;
+        }
+
+        Map<String ,String> map = new HashMap<>();
+        map.put("bannerPicUrl",bannerManage.getPictureUrl());
+        bannerManageBean.setData(map);
         bannerManageBean.setMsg("数据获取成功！");
         bannerManageBean.setCode(1);
         return bannerManageBean;
@@ -132,7 +143,7 @@ public class BannerManageProcessor {
         maxRecord = AllDao.getInstance().getBannerManageDao().getMaxRecord();
         paginationBean.setPageSize(pageSize);
         paginationBean.setMaxRecord(maxRecord);
-        paginationBean.setPageCount((int) Math.ceil((double)maxRecord/pageSize));
+        paginationBean.setPageCount((int) Math.ceil((double) maxRecord / pageSize));
 
         bannerManageBean.setData(paginationBean);
         bannerManageBean.setMsg("数据获取成功！");

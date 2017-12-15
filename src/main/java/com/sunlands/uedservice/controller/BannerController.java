@@ -1,14 +1,11 @@
 package com.sunlands.uedservice.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import com.sunlands.uedservice.bean.ResultBean;
 import com.sunlands.uedservice.processor.BannerManageProcessor;
 import com.sunlands.uedservice.utils.GsonUtil;
 import com.sunlands.uedservice.utils.ParamUtils;
 import com.sunlands.uedservice.view.View;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,42 +22,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("/banner")
-public class BannerManageController {
+public class BannerController {
 
     private static BannerManageProcessor processor = new BannerManageProcessor();
     private static Gson gson = GsonUtil.getGson();
     private static View view = new View();
-
-    /**
-     * banner信息列表
-     * @param request
-     * @param response
-     */
-    @PostMapping("/list")
-    public @ResponseBody
-    void list(HttpServletRequest request, HttpServletResponse response) {
-        String param = ParamUtils.getParam(request);
-        ResultBean resultBean = processor.getAllByPageNum(param);
-        String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
-    }
-
-
-    /**
-     * banner中插入一条记录
-     *
-     * @param request
-     * @param response
-     * @return
-     */
-    @PostMapping("/publish")
-    public @ResponseBody
-    void publish(HttpServletRequest request, HttpServletResponse response) {
-        String param = ParamUtils.getParam(request);
-        ResultBean resultBean = processor.insert(param);
-        String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
-    }
 
     /**
      * 获取一条banner记录
