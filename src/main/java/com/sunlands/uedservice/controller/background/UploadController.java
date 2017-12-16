@@ -36,7 +36,7 @@ public class UploadController {
 
 
     /**
-     * 图片上传
+     * 图片上传  TODO 使用jersey实现应用服务器和图片服务器分离 http://blog.csdn.net/qq_31951571/article/details/49681027
      *
      * @param file
      * @param response
@@ -65,7 +65,7 @@ public class UploadController {
     }
 
     /**
-     * 图片上传
+     * 图片上传 TODO 使用jersey实现应用服务器和图片服务器分离 http://blog.csdn.net/qq_31951571/article/details/49681027
      *
      * @param file
      * @param response
