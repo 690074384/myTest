@@ -141,4 +141,32 @@ public class BannerManageProcessor {
         bannerManageBean.setCode(1);
         return bannerManageBean;
     }
+
+    public ResultBean getByType(String param) {
+        ResultBean bannerManageBean = new ResultBean();
+        int type;
+        try {
+            type = ((JsonObject) jsonParser.parse(param)).get("type").getAsInt();
+        } catch (Exception e) {
+            logger.error("参数传递异常！");
+            bannerManageBean.setCode(0);
+            bannerManageBean.setMsg("参数传递异常！");
+            return bannerManageBean;
+        }
+
+        BannerManage bannerManage = AllDao.getInstance().getBannerManageDao().selectByType(type);
+        if (bannerManage == null) {
+            bannerManageBean.setMsg("该banner不存在或已被删除！");
+            logger.error("该banner不存在或已被删除！");
+            bannerManageBean.setCode(0);
+            return bannerManageBean;
+        }
+
+        Map<String ,String> map = new HashMap<>();
+        map.put("bannerPicUrl",bannerManage.getPictureUrl());
+        bannerManageBean.setData(map);
+        bannerManageBean.setMsg("数据获取成功！");
+        bannerManageBean.setCode(1);
+        return bannerManageBean;
+    }
 }

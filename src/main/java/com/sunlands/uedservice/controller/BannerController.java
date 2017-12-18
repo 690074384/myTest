@@ -37,7 +37,7 @@ public class BannerController {
     public @ResponseBody
     void get(HttpServletRequest request, HttpServletResponse response) {
         String param = ParamUtils.getParam(request);
-        ResultBean resultBean = processor.getById(param);
+        ResultBean resultBean = processor.getByType(param);
         String resultStr = gson.toJson(resultBean);
         view.viewString(resultStr, response);
     }
