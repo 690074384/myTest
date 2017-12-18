@@ -39,7 +39,7 @@ public interface BannerManageMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,title,picture_url as pictureUrl,type,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_banner_manage where delete_flag = 0 order by update_time limit #{param1},#{param2}")
+    @Select("select id,title,picture_url as pictureUrl,type,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_banner_manage where delete_flag = 0 order by update_time desc limit #{param1},#{param2}")
     List<BannerManage> getAllByPageNum(int startNum, int endNum);
 
     /**
