@@ -125,6 +125,7 @@ public class BannerManageProcessor {
             bannerManageList = AllDao.getInstance().getBannerManageDao().getAllByPageNum((pageNum - 1) * pageSize, pageNum * pageSize);
             paginationBean.setList(bannerManageList);
         } catch (Exception e) {
+            e.printStackTrace();
             bannerManageBean.setCode(0);
             logger.error("参数传递异常！");
             bannerManageBean.setMsg("参数传递异常！");

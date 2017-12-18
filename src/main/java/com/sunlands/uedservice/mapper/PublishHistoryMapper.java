@@ -31,7 +31,7 @@ public interface PublishHistoryMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,type from tb_publish_history where delete_flag = 0 limit #{arg0},#{arg1}")
+    @Select("select id,picture_url as pictureUrl,title,type from tb_publish_history where delete_flag = 0 limit #{param1},#{param2}")
     List<PublishHistory> getAllByPageNum(int startNum, int endNum);
 
     /**
@@ -41,7 +41,7 @@ public interface PublishHistoryMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title from tb_publish_history where delete_flag = 0 and type = #{arg0} limit #{arg1},#{arg2}")
+    @Select("select id,picture_url as pictureUrl,title from tb_publish_history where delete_flag = 0 and type = #{param1} limit #{param2},#{param3}")
     List<PublishHistory> getOneTypeByPageNum(int type , int startNum, int endNum);
 
     /**

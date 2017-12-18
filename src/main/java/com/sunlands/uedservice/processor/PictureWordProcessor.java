@@ -116,6 +116,7 @@ public class PictureWordProcessor {
             pictureWordList = AllDao.getInstance().getPictureWordDao().getAllByPageNum((pageNum - 1) * pageSize, pageNum * pageSize);
             paginationBean.setList(pictureWordList);
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error("参数传递异常！");
             pictureWordBean.setCode(0);
             pictureWordBean.setMsg("参数传递异常！");

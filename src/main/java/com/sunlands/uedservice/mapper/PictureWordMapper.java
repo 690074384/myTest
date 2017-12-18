@@ -38,7 +38,7 @@ public interface PictureWordMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,article,type,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_picture_word where delete_flag = 0 order by sequence limit #{arg0},#{arg1}")
+    @Select("select id,picture_url as pictureUrl,title,article,type,creator,updater,create_time as createTime,update_time as updateTime,sequence from tb_picture_word where delete_flag = 0 order by sequence limit #{param1},#{param2}")
     List<PictureWord> getAllByPageNum(int startNum, int endNum);
 
     /**
