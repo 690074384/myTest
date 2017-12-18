@@ -49,17 +49,10 @@ public class UserController {
     /**
      * 退出登录
      *
-     * @param request
      * @return
      */
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        request.getSession();
-        Enumeration em = request.getSession().getAttributeNames();
-        while (em.hasMoreElements()) {
-            request.getSession().removeAttribute(em.nextElement().toString());
-        }
-
-        return "redirect:http://172.16.116.136:9091/cas/logout?service=" + casConfigBean.getServerName();
+    public String logout() {
+        return "redirect:" + casConfigBean.getCasServer() + "/logout?service=" + casConfigBean.getServerName() + "/background/user/getInfo";
     }
 }

@@ -3,7 +3,9 @@ package com.sunlands.uedservice;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @ModifiedBy :
  *
 */
-public class UedServiceApplication {
+public class UedServiceApplication{
 
     @RequestMapping("/")
     public String hello() {
