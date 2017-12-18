@@ -24,7 +24,7 @@ public class DownloadMessageProcessor {
     private static Logger logger = LoggerFactory.getLogger(DownLoadMessage.class);
     private static JsonParser jsonParser = new JsonParser();
 
-    public ResultBean insert(String param) {
+    public ResultBean insert(String param,String account) {
 
         Long id = SnowflakeIdWorker.getSnowFlakeId();
         String pictureUrl;
@@ -54,9 +54,8 @@ public class DownloadMessageProcessor {
         downLoadMessage.setTitle(title);
         downLoadMessage.setAttachmentUrl(attachmentUrl);
 
-        // TODO 需要获取session中的用户
-        downLoadMessage.setUpdater("lvpenghui");
-        downLoadMessage.setCreator("lvpenghui");
+        downLoadMessage.setUpdater(account);
+        downLoadMessage.setCreator(account);
 
         PublishHistory publishHistory = new PublishHistory();
         publishHistory.setId(id);

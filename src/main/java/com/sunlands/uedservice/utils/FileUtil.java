@@ -24,7 +24,6 @@ public class FileUtil {
             File serverFile = new File(filePath + fileName);
             file.transferTo(serverFile);
         }catch (Exception e){
-            //TODO:
             e.printStackTrace();
             return "上传失败！";
         }

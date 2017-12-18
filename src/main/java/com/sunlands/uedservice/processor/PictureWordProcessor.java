@@ -24,7 +24,7 @@ public class PictureWordProcessor {
     private static Logger logger = LoggerFactory.getLogger(PictureWord.class);
     private static JsonParser jsonParser = new JsonParser();
 
-    public ResultBean insert(String param) {
+    public ResultBean insert(String param,String account) {
         String pictureUrl;
         Byte type = 5;
         String title;
@@ -51,9 +51,8 @@ public class PictureWordProcessor {
         pictureWord.setTitle(title);
         pictureWord.setArticle(article);
 
-        // TODO 需要获取session中的用户
-        pictureWord.setUpdater("lvpenghui");
-        pictureWord.setCreator("lvpenghui");
+        pictureWord.setUpdater(account);
+        pictureWord.setCreator(account);
 
 
         PublishHistory publishHistory = new PublishHistory();

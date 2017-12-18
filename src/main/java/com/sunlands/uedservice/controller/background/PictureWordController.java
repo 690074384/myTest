@@ -6,6 +6,7 @@ import com.sunlands.uedservice.processor.PictureWordProcessor;
 import com.sunlands.uedservice.utils.GsonUtil;
 import com.sunlands.uedservice.utils.ParamUtils;
 import com.sunlands.uedservice.view.View;
+import org.jasig.cas.client.authentication.AttributePrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,8 +51,11 @@ public class PictureWordController {
     @PostMapping("/publish")
     public @ResponseBody
     void publish(HttpServletRequest request, HttpServletResponse response) {
+
+        AttributePrincipal principal =(AttributePrincipal)request.getUserPrincipal();
+        String account =  principal.getName() + "@sunlands.com";
         String param = ParamUtils.getParam(request);
-        ResultBean resultBean = processor.insert(param);
+        ResultBean resultBean = processor.insert(param,account);
         String resultStr = gson.toJson(resultBean);
         view.viewString(resultStr, response);
     }

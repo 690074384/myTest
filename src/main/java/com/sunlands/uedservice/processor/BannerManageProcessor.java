@@ -34,7 +34,7 @@ public class BannerManageProcessor {
      * @param param
      * @return
      */
-    public ResultBean insert(String param) {
+    public ResultBean insert(String param,String account) {
         String pictureUrl;
         Byte type;
         JsonObject bannerManageJson;
@@ -56,9 +56,8 @@ public class BannerManageProcessor {
         bannerManage.setType(type);
         bannerManage.setPictureUrl(pictureUrl);
 
-        // TODO 需要获取session中的用户
-        bannerManage.setUpdater("lvpenghui");
-        bannerManage.setCreator("lvpenghui");
+        bannerManage.setUpdater(account);
+        bannerManage.setCreator(account);
 
 
         PublishHistory publishHistory = new PublishHistory();
