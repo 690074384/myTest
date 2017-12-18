@@ -26,7 +26,7 @@ public class PictureWordProcessor {
 
     public ResultBean insert(String param) {
         String pictureUrl;
-        Byte type;
+        Byte type = 5;
         String title;
         String article;
         JsonObject pictureWordJson;
@@ -35,7 +35,6 @@ public class PictureWordProcessor {
         try {
             pictureWordJson = (JsonObject) jsonParser.parse(param);
             pictureUrl = pictureWordJson.get("pictureUrl").getAsString();
-            type = pictureWordJson.get("type").getAsByte();
             title = pictureWordJson.get("title").getAsString();
             article = pictureWordJson.get("article").getAsString();
         } catch (Exception e) {
@@ -69,6 +68,7 @@ public class PictureWordProcessor {
             AllDao.getInstance().getPictureWordDao().insertOne(pictureWord);
             AllDao.getInstance().getPublishHistoryDao().insertOne(publishHistory);
         } catch (Exception e) {
+            e.printStackTrace();
             pictureWordBean.setCode(0);
             pictureWordBean.setMsg("数据插入失败！");
             return pictureWordBean;

@@ -31,7 +31,7 @@ public class UserInfoController {
      * @param request
      * @param response
      */
-    @GetMapping("/get")
+    @GetMapping("/getInfo")
     public @ResponseBody
     void list(HttpServletRequest request, HttpServletResponse response) {
         ResultBean resultBean = new ResultBean();
