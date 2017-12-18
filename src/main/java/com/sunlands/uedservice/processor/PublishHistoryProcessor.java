@@ -196,7 +196,7 @@ public class PublishHistoryProcessor {
             return sharedBean;
         }
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date d = pictureWord.getCreateTime();
 
         returnPictureWord.setDate(df.format(d));
