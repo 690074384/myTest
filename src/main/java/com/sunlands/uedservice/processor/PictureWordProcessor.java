@@ -60,6 +60,7 @@ public class PictureWordProcessor {
         publishHistory.setPictureUrl(pictureUrl);
         publishHistory.setTitle(title);
         publishHistory.setType(type);
+        publishHistory.setDownloadNum(-1);
         publishHistory.setTableChoose("tb_picture_word");
         publishHistory.setDeleteFlag((byte) 0);
 

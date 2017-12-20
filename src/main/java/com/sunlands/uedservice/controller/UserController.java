@@ -53,6 +53,7 @@ public class UserController {
      */
     @GetMapping("/logout")
     public String logout() {
+        System.out.println(casConfigBean.getCasServer() + "/logout");
         return "redirect:" + casConfigBean.getCasServer() + "/logout?service=" + casConfigBean.getServerName() + "/background/user/getInfo";
     }
 }

@@ -62,6 +62,7 @@ public class DownloadMessageProcessor {
         publishHistory.setPictureUrl(pictureUrl);
         publishHistory.setTitle(title);
         publishHistory.setType(type);
+        publishHistory.setDownloadNum(0);
         publishHistory.setTableChoose("tb_download_message");
         publishHistory.setDeleteFlag((byte) 0);
 

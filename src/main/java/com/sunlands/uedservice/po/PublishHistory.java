@@ -9,6 +9,15 @@ public class PublishHistory extends Root{
     private String title;
     private Byte type;
     private String tableChoose;
+    private Integer downloadNum;
+
+    public Integer getDownloadNum() {
+        return downloadNum;
+    }
+
+    public void setDownloadNum(Integer downloadNum) {
+        this.downloadNum = downloadNum;
+    }
 
     public String getTitle() {
         return title;

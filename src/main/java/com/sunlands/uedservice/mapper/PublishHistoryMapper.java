@@ -22,7 +22,7 @@ public interface PublishHistoryMapper {
      * 向tb_publish_history中插入一条记录
      * @param publishHistory
      */
-    @Insert("insert into tb_publish_history(id,picture_url,title,type,table_choose,delete_flag) values(#{id},#{pictureUrl},#{title},#{type},#{tableChoose},#{deleteFlag})")
+    @Insert("insert into tb_publish_history(id,picture_url,title,type,download_num,table_choose,delete_flag) values(#{id},#{pictureUrl},#{title},#{type},#{downloadNum},#{tableChoose},#{deleteFlag})")
     void insertOne(PublishHistory publishHistory);
 
     /**
@@ -31,7 +31,7 @@ public interface PublishHistoryMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title,type from tb_publish_history where delete_flag = 0 limit #{param1},#{param2}")
+    @Select("select id,picture_url as pictureUrl,title,download_num as downloadNum,type from tb_publish_history where delete_flag = 0 limit #{param1},#{param2}")
     List<PublishHistory> getAllByPageNum(int startNum, int endNum);
 
     /**
@@ -41,7 +41,7 @@ public interface PublishHistoryMapper {
      * @param endNum
      * @return
      */
-    @Select("select id,picture_url as pictureUrl,title from tb_publish_history where delete_flag = 0 and type = #{param1} limit #{param2},#{param3}")
+    @Select("select id,picture_url as pictureUrl,title,download_num as downloadNum from tb_publish_history where delete_flag = 0 and type = #{param1} limit #{param2},#{param3}")
     List<PublishHistory> getOneTypeByPageNum(int type , int startNum, int endNum);
 
     /**

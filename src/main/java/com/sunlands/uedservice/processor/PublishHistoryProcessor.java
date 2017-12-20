@@ -67,7 +67,7 @@ public class PublishHistoryProcessor {
         List<PublishHistory> oneTypePublishHistoryList;
         JsonObject oneTypeJson;
         int pageNum = 1;
-        int type = 1;
+        int type = -1;
         int pageSize = 12;
         int maxRecord;
         try {
@@ -84,7 +84,12 @@ public class PublishHistoryProcessor {
                 }
             }
 
-            oneTypePublishHistoryList = AllDao.getInstance().getPublishHistoryDao().getOneTypeByPageNum(type, (pageNum - 1) * pageSize, pageNum * pageSize);
+            if(type==-1){
+                oneTypePublishHistoryList = AllDao.getInstance().getPublishHistoryDao().getAllByPageNum((pageNum - 1) * pageSize, pageNum * pageSize);
+            }else{
+                oneTypePublishHistoryList = AllDao.getInstance().getPublishHistoryDao().getOneTypeByPageNum(type, (pageNum - 1) * pageSize, pageNum * pageSize);
+            }
+
             paginationBean.setList(oneTypePublishHistoryList);
         } catch (Exception e) {
             oneTypePublishHistoryBean.setCode(0);
@@ -94,7 +99,11 @@ public class PublishHistoryProcessor {
             return oneTypePublishHistoryBean;
         }
 
-        maxRecord = AllDao.getInstance().getPublishHistoryDao().getOneTypeMaxRecord(type);
+        if(type==-1){
+            maxRecord = AllDao.getInstance().getPublishHistoryDao().getMaxRecord();
+        }else{
+            maxRecord = AllDao.getInstance().getPublishHistoryDao().getOneTypeMaxRecord(type);
+        }
         paginationBean.setPageSize(pageSize);
         paginationBean.setMaxRecord(maxRecord);
         paginationBean.setPageCount((int) Math.ceil((double) maxRecord / pageSize));

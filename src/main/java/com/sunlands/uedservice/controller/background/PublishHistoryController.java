@@ -35,7 +35,7 @@ public class PublishHistoryController {
     public @ResponseBody
     void listAll(HttpServletRequest request, HttpServletResponse response) {
         String param = ParamUtils.getParam(request);
-        ResultBean resultBean = processor.getAllByPageNum(param);
+        ResultBean resultBean = processor.getOneTypeByPageNum(param);
         String resultStr = gson.toJson(resultBean);
         view.viewString(resultStr, response);
     }

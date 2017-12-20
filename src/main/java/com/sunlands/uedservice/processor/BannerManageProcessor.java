@@ -64,6 +64,7 @@ public class BannerManageProcessor {
         publishHistory.setId(id);
         publishHistory.setPictureUrl(pictureUrl);
         publishHistory.setType(type);
+        publishHistory.setDownloadNum(-1);
         publishHistory.setTableChoose("tb_banner_manage");
         publishHistory.setDeleteFlag((byte) 0);
         publishHistory.setTitle("");
