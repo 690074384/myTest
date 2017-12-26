@@ -31,6 +31,7 @@ public class BannerManageController {
 
     /**
      * banner信息列表
+     *
      * @param request
      * @param response
      */
@@ -40,7 +41,7 @@ public class BannerManageController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getAllByPageNum(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
     /**
@@ -53,12 +54,12 @@ public class BannerManageController {
     @PostMapping("/publish")
     public @ResponseBody
     void publish(HttpServletRequest request, HttpServletResponse response) {
-        AttributePrincipal principal =(AttributePrincipal)request.getUserPrincipal();
+        AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
         String param = ParamUtils.getParam(request);
-        String account =  principal.getName() + "@sunlands.com";
-        ResultBean resultBean = processor.insert(param,account);
+        String account = principal.getName() + "@sunlands.com";
+        ResultBean resultBean = processor.insert(param, account);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
 }

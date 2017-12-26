@@ -37,11 +37,12 @@ public class PublishHistoryController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getOneTypeByPageNum(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
     /**
      * 根据条件选择显示某一类信息 1--品牌元素；2--ppt模板；3--广告模板；
+     *
      * @param request
      * @param response
      */
@@ -51,11 +52,12 @@ public class PublishHistoryController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getOneTypeByPageNum(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
     /**
      * 删除某一项信息
+     *
      * @param request
      * @param response
      */
@@ -65,7 +67,7 @@ public class PublishHistoryController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.updateDeleteFlagById(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
 }

@@ -36,13 +36,10 @@ public class UserController {
     @GetMapping("/login/{userName}")
     public void login(@PathVariable String userName, HttpServletRequest request, HttpServletResponse response) {
 
-        System.out.println(casConfigBean.getCasServer());
         AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
         principal.getAttributes();
-
         String s = casConfigBean.getCasServer() + "/getPrivilege?userName=" + userName;
-        System.out.println(s);
-        view.viewString(s, response);
+        view.viewString(s, response,request);
     }
 
 

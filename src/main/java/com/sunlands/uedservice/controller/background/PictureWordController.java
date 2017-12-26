@@ -30,6 +30,7 @@ public class PictureWordController {
 
     /**
      * 显示图文列表
+     *
      * @param request
      * @param response
      */
@@ -39,7 +40,7 @@ public class PictureWordController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getAllByPageNum(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
     /**
@@ -52,16 +53,17 @@ public class PictureWordController {
     public @ResponseBody
     void publish(HttpServletRequest request, HttpServletResponse response) {
 
-        AttributePrincipal principal =(AttributePrincipal)request.getUserPrincipal();
-        String account =  principal.getName() + "@sunlands.com";
+        AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
+        String account = principal.getName() + "@sunlands.com";
         String param = ParamUtils.getParam(request);
-        ResultBean resultBean = processor.insert(param,account);
+        ResultBean resultBean = processor.insert(param, account);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
     /**
      * 获取一条图文管理记录
+     *
      * @param request
      * @param response
      */
@@ -71,6 +73,6 @@ public class PictureWordController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getById(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 }

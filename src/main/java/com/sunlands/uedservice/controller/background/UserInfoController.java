@@ -9,6 +9,7 @@ import org.jasig.cas.client.authentication.AttributePrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -26,8 +27,10 @@ public class UserInfoController {
 
     private static Gson gson = GsonUtil.getGson();
     private static View view = new View();
+
     /**
      * 获取用户信息
+     *
      * @param request
      * @param response
      */
@@ -35,17 +38,17 @@ public class UserInfoController {
     public @ResponseBody
     void list(HttpServletRequest request, HttpServletResponse response) {
         ResultBean resultBean = new ResultBean();
-        AttributePrincipal principal =(AttributePrincipal)request.getUserPrincipal();
-        String name =  principal.getName();
+        AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
+        String name = principal.getName();
         String account = name + "@sunlands.com";
-        Map<String,String> map = new HashMap<>();
-        map.put("name",name);
-        map.put("account",account);
+        Map<String, String> map = new HashMap<>();
+        map.put("name", name);
+        map.put("account", account);
         resultBean.setCode(1);
         resultBean.setMsg("获取成功！");
         resultBean.setData(map);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
 

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 下载信息管理
+ *
  * @author lvpenghui
  * @date 2017/12/6 11:17
  */
@@ -30,6 +31,7 @@ public class DownloadMessageController {
 
     /**
      * 显示下载信息列表
+     *
      * @param request
      * @param response
      */
@@ -39,11 +41,12 @@ public class DownloadMessageController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getAllByPageNum(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
     /**
      * 下载信息插入一条记录
+     *
      * @param request
      * @param response
      */
@@ -51,15 +54,16 @@ public class DownloadMessageController {
     public @ResponseBody
     void publish(HttpServletRequest request, HttpServletResponse response) {
         String param = ParamUtils.getParam(request);
-        AttributePrincipal principal =(AttributePrincipal)request.getUserPrincipal();
+        AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
         String account = principal.getName() + "@sunlands.com";
-        ResultBean resultBean = processor.insert(param,account);
+        ResultBean resultBean = processor.insert(param, account);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
     /**
      * 获取一条下载信息记录
+     *
      * @param request
      * @param response
      */
@@ -69,6 +73,6 @@ public class DownloadMessageController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getById(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 }

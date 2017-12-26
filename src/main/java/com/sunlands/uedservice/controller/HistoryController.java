@@ -43,6 +43,7 @@ public class HistoryController {
 
     /**
      * 根据条件选择显示某一类信息 1--品牌元素；2--ppt模板；3--广告模板；5--精彩分享；
+     *
      * @param request
      * @param response
      */
@@ -52,11 +53,12 @@ public class HistoryController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getOneTypeByPageNum(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
     /**
      * 下载某项记录
+     *
      * @return
      * @throws IOException
      */
@@ -64,8 +66,8 @@ public class HistoryController {
     public ResponseEntity<byte[]> download(@PathVariable("id") Long id) throws IOException {
 
         String url = processor.goDownload(id);
-        File file = new File(downloadLocationBean.getAttachmentUrl()+url);
-        byte[] body = null;
+        File file = new File(downloadLocationBean.getAttachmentUrl() + url);
+        byte[] body;
         InputStream is = new FileInputStream(file);
         body = new byte[is.available()];
         is.read(body);
@@ -78,6 +80,7 @@ public class HistoryController {
 
     /**
      * 查询精彩分享详情
+     *
      * @param request
      * @param response
      */
@@ -87,10 +90,8 @@ public class HistoryController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getShared(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
-
-
 
 
 }

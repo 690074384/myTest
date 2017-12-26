@@ -30,6 +30,7 @@ public class BannerController {
 
     /**
      * 获取一条banner记录
+     *
      * @param request
      * @param response
      */
@@ -39,7 +40,7 @@ public class BannerController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getByType(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response);
+        view.viewString(resultStr, response, request);
     }
 
 }

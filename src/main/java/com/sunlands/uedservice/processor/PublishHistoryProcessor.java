@@ -73,10 +73,10 @@ public class PublishHistoryProcessor {
         try {
             if (param != null && param.trim().length() != 0) {
                 oneTypeJson = (JsonObject) jsonParser.parse(param);
-                if (oneTypeJson.has(NameUtil.PAGENUM)) {
+                if (oneTypeJson.has(NameUtil.PAGE_NUM)) {
                     pageNum = ((JsonObject) jsonParser.parse(param)).get("pageNum").getAsInt();
                 }
-                if (oneTypeJson.has(NameUtil.PAGESIZE)) {
+                if (oneTypeJson.has(NameUtil.PAGE_SIZE)) {
                     pageSize = ((JsonObject) jsonParser.parse(param)).get("pageSize").getAsInt();
                 }
                 if (oneTypeJson.has(NameUtil.TYPE)) {
