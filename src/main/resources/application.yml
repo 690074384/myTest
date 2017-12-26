@@ -29,7 +29,3 @@ cas:
   casServer: http://172.16.116.136:9091/cas
   serverName: http://172.16.117.223:8090
   ignoreAddress: ^(?!.*background).*$|/*.html
-
-#download-location
-pictureUrl: C:/pictures/
-attachmentUrl: C:/attachments/

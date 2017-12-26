@@ -10,6 +10,15 @@ public class PublishHistory extends Root{
     private Byte type;
     private String tableChoose;
     private Integer downloadNum;
+    private String attachmentUrl;
+
+    public String getAttachmentUrl() {
+        return attachmentUrl;
+    }
+
+    public void setAttachmentUrl(String attachmentUrl) {
+        this.attachmentUrl = attachmentUrl;
+    }
 
     public Integer getDownloadNum() {
         return downloadNum;

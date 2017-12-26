@@ -65,6 +65,7 @@ public class DownloadMessageProcessor {
         publishHistory.setDownloadNum(0);
         publishHistory.setTableChoose("tb_download_message");
         publishHistory.setDeleteFlag((byte) 0);
+        publishHistory.setAttachmentUrl(attachmentUrl);
 
         try {
             AllDao.getInstance().getDownloadMessageDao().insertOne(downLoadMessage);

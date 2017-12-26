@@ -38,9 +38,6 @@ public class HistoryController {
     private static Gson gson = GsonUtil.getGson();
     private static View view = new View();
 
-    @Autowired
-    private DownloadLocationBean downloadLocationBean;
-
     /**
      * 根据条件选择显示某一类信息 1--品牌元素；2--ppt模板；3--广告模板；5--精彩分享；
      *
@@ -63,19 +60,12 @@ public class HistoryController {
      * @throws IOException
      */
     @GetMapping("/goDownload/{id}")
-    public ResponseEntity<byte[]> download(@PathVariable("id") Long id) throws IOException {
+    public @ResponseBody String download(@PathVariable("id") Long id) throws IOException {
 
         String url = processor.goDownload(id);
-        File file = new File(downloadLocationBean.getAttachmentUrl() + url);
-        byte[] body;
-        InputStream is = new FileInputStream(file);
-        body = new byte[is.available()];
-        is.read(body);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attchement;filename=" + file.getName());
-        HttpStatus statusCode = HttpStatus.OK;
-        ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
-        return entity;
+        url = url.replaceAll("\\\\","//");
+        System.out.println(url);
+        return url;
     }
 
     /**
