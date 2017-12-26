@@ -31,12 +31,12 @@ public class SnowflakeIdWorker {
 	/**
 	 * 机器id所占的位数
 	 */
-	private static final long WORK_ID_BITS = 5L;
+	private static final long WORK_ID_BITS = 4L;
 	
 	/**
 	 * 数据标识id所占的位数
 	 */
-	private static final long DATA_CENTER_ID_BITS = 5L;
+	private static final long DATA_CENTER_ID_BITS = 4L;
 	
 	/**
 	 * 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数)
@@ -51,7 +51,7 @@ public class SnowflakeIdWorker {
 	/**
 	 * 序列在id中占的位数
 	 */
-	private static final long SEQUENCE_BITS = 12L;
+	private static final long SEQUENCE_BITS = 8L;
 	
 	/**
 	 * 机器ID向左移12位
@@ -180,14 +180,14 @@ public class SnowflakeIdWorker {
 	/**
 	 * 测试
 	 */
-/*	public static void main(String[] args) {
+	public static void main(String[] args) {
 		SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
 		for (int i = 0; i < 1000; i++) {
 			long id = idWorker.nextId();
 			System.out.println(Long.toBinaryString(id));
 			System.out.println(id);
 		}
-	}*/
+	}
 	
 	public static Long getSnowFlakeId() {
 		return new SnowflakeIdWorker(0, 0).nextId();
