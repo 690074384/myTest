@@ -39,7 +39,7 @@ public class UserController {
         AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
         principal.getAttributes();
         String s = casConfigBean.getCasServer() + "/getPrivilege?userName=" + userName;
-        view.viewString(s, response,request);
+        view.viewString(s, response);
     }
 
 

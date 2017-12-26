@@ -40,7 +40,7 @@ public class BannerController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getByType(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response, request);
+        view.viewString(resultStr, response);
     }
 
 }

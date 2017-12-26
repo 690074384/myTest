@@ -53,7 +53,7 @@ public class HistoryController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getOneTypeByPageNum(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response, request);
+        view.viewString(resultStr, response);
     }
 
     /**
@@ -90,7 +90,7 @@ public class HistoryController {
         String param = ParamUtils.getParam(request);
         ResultBean resultBean = processor.getShared(param);
         String resultStr = gson.toJson(resultBean);
-        view.viewString(resultStr, response, request);
+        view.viewString(resultStr, response);
     }
 
 
