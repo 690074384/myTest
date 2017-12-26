@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 public class FileUploader {
+    public static void main(String[]args){
+        System.out.println(1<<1);
+    }
 
     /*//跳转到上传文件的页面
     @RequestMapping(value="/gouploadimg", method = RequestMethod.GET)
